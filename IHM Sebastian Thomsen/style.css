@@ -1,0 +1,636 @@
+/* ==========================================================================
+   1 · Box-modellen: bredden gäller hela lådan och mjuk scroll
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* ==========================================================================
+   2 · Varumärket som variabler & färgpalett (Ljust läge som standard)
+   Stil: Kreativ byrå, digital konst, editorial design och exklusiv webb
+   ========================================================================== */
+:root {
+    /* ✦ BAKGRUNDENS FÄRGER (Ljust läge: varm, editorial & eterisk konstduk) ✦ */
+    --background: #f7f5f0;
+    /* Mjuk, varm pappers/porslinston */
+    --background-dark: #eeeae0;
+    /* Subtilt mörkare sandton i mitten */
+    --blue: #a3b8e8;
+    /* Dämpad himmelsblå/lavendel */
+    --cyan: #76cbcf;
+    /* Mjukt ljusturkos färgdimma */
+    --orange: #f59b6c;
+    /* Varm aprikos/solnedgång */
+    --coral: #ea8a88;
+    /* Dämpad korall */
+    --purple: #c4a1d8;
+    /* Mjuk syren/puderlila */
+    --magenta: #d98aa8;
+    /* Dämpad rosenmagenta */
+    --blur-grad: 140px;
+    /* Kraftig oskärpa för mjuka fält */
+    --vignette-farg: rgba(220, 214, 202, 0.45);
+    /* Mjuk ljustonad kant */
+
+    /* Typografi från Google Fonts */
+    --typsnitt-rubrik: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --typsnitt-brod: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    /* Text & kontrast (Ljust läge: > 14:1) */
+    --text: #171b22;
+    /* Djup kol/svart för optimal kontrast */
+    --text-dampad: #525a66;
+    /* Dämpad blyertsgrå för ingress & detaljer */
+    --primar: #16324f;
+    /* Djup twilight-marinblå rubrikfärg */
+    --accent: #c44e23;
+    /* Varm terrakotta/bärnsten (kontrast > 4,7:1 mot vitt) */
+    --accent-hov: #aa3e18;
+    /* Mörkare accent vid hovring */
+    --knapptext: #ffffff;
+    /* Textfärg på knapp */
+
+    /* Glansiga glaspartier (Ljust läge: krispigt vitt frostat glas) */
+    --glas-bakgrund: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.48) 45%, rgba(255, 255, 255, 0.70) 100%);
+    --glas-kant: rgba(255, 255, 255, 0.90);
+    --glas-reflektion: linear-gradient(175deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.08) 55%, transparent 100%);
+    --glas-sken: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+    --glas-hover-border: rgba(255, 255, 255, 1);
+    --glas-hover-sken: inset 0 1px 2px 0 rgba(255, 255, 255, 1);
+
+    /* Form & mått */
+    --luft: 1rem;
+    --radie: 18px;
+    --skugga: rgba(22, 50, 79, 0.08);
+}
+
+/* ==========================================================================
+   3 · STATISK EXPERIMENTELL GRADIENTBAKGRUND (HELT UTAN ANIMATIONER)
+   ========================================================================== */
+
+/* Huvudbehållare: Ligger fixerad längst bak över hela viewporten */
+.art-bakgrund {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background);
+    background-image: radial-gradient(circle at 50% 50%, var(--background-dark) 0%, var(--background) 100%);
+    overflow: hidden;
+    z-index: -1;
+    pointer-events: none;
+    /* Ser till att besökaren kan klicka rakt igenom bakgrunden */
+    transition: background-color 0.4s ease;
+}
+
+/* Gemensam stil för de organiska färgfälten: stora, suddiga och mjuka */
+.art-ljus {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
+    transition: background 0.4s ease, opacity 0.4s ease;
+}
+
+/* FÄLT 1: Mjukt cyan/turkost fält längs nedre och vänstra kanten */
+.art-ljus-cyan {
+    bottom: -15vh;
+    left: -12vw;
+    width: 65vw;
+    height: 65vw;
+    max-width: 950px;
+    max-height: 950px;
+    background: radial-gradient(circle, var(--cyan) 0%, rgba(0, 169, 183, 0.45) 45%, transparent 75%);
+    border-radius: 46% 54% 60% 40% / 50% 45% 55% 50%;
+    filter: blur(var(--blur-grad));
+    opacity: 0.55;
+}
+
+/* FÄLT 2: Varmt orange ljusfält mot övre och högra kanten */
+.art-ljus-orange {
+    top: -15vh;
+    right: -10vw;
+    width: 60vw;
+    height: 60vw;
+    max-width: 880px;
+    max-height: 880px;
+    background: radial-gradient(circle, var(--orange) 0%, rgba(232, 106, 58, 0.45) 45%, transparent 75%);
+    border-radius: 55% 45% 40% 60% / 45% 55% 50% 50%;
+    filter: blur(var(--blur-grad));
+    opacity: 0.52;
+}
+
+/* FÄLT 3: Korall & dämpad färgblödning mot höger mittsektion */
+.art-ljus-korall {
+    top: 28vh;
+    right: 4vw;
+    width: 50vw;
+    height: 48vw;
+    max-width: 720px;
+    max-height: 700px;
+    background: radial-gradient(ellipse, var(--coral) 0%, rgba(216, 91, 88, 0.35) 50%, transparent 75%);
+    border-radius: 60% 40% 50% 50% / 40% 60% 50% 50%;
+    filter: blur(calc(var(--blur-grad) * 1.15));
+    opacity: 0.42;
+}
+
+/* FÄLT 4: Djupblått område runt mitten – skapar ett lugnt, harmoniskt centrum */
+.art-ljus-bla {
+    top: 25vh;
+    left: 20vw;
+    width: 62vw;
+    height: 52vw;
+    max-width: 900px;
+    max-height: 800px;
+    background: radial-gradient(circle, var(--blue) 0%, rgba(7, 59, 102, 0.45) 55%, transparent 75%);
+    border-radius: 50% 50% 45% 55% / 55% 45% 55% 45%;
+    filter: blur(calc(var(--blur-grad) * 1.25));
+    opacity: 0.65;
+}
+
+/* FÄLT 5: Mörk lila övergång i övre vänstra området */
+.art-ljus-lila {
+    top: -5vh;
+    left: 12vw;
+    width: 48vw;
+    height: 48vw;
+    max-width: 700px;
+    max-height: 700px;
+    background: radial-gradient(circle, var(--purple) 0%, rgba(85, 42, 101, 0.35) 45%, transparent 75%);
+    border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
+    filter: blur(var(--blur-grad));
+    opacity: 0.48;
+}
+
+/* FÄLT 6: Subtil dämpad magenta i nedre mitten för analog fotokänsla */
+.art-ljus-magenta {
+    bottom: -10vh;
+    right: 18vw;
+    width: 46vw;
+    height: 42vw;
+    max-width: 680px;
+    max-height: 620px;
+    background: radial-gradient(circle, var(--magenta) 0%, rgba(130, 38, 89, 0.30) 40%, transparent 75%);
+    border-radius: 50% 50% 40% 60% / 60% 40% 50% 50%;
+    filter: blur(calc(var(--blur-grad) * 1.2));
+    opacity: 0.35;
+}
+
+/* VIGNETTE: Mjuk analog toning mot kanterna för djup */
+.art-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 45%, var(--vignette-farg) 100%);
+    pointer-events: none;
+    transition: background 0.4s ease;
+}
+
+/* FILMKORN (GRAIN): Mycket subtilt analogt filmkorn via ren inline SVG-brus */
+.art-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='filmGrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23filmGrain)' opacity='0.045'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    opacity: 0.85;
+}
+
+/* ==========================================================================
+   4 · Grundstil för typografi och länkar
+   ========================================================================== */
+body {
+    margin: 0;
+    font-family: var(--typsnitt-brod);
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--text);
+    background-color: var(--background);
+    overflow-x: hidden;
+    transition: color 0.4s ease, background-color 0.4s ease;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--typsnitt-rubrik);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--primar);
+    font-weight: 700;
+    transition: color 0.4s ease;
+}
+
+h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+h2 {
+    font-size: 1.75rem;
+    margin-top: 0;
+    margin-bottom: var(--luft);
+    letter-spacing: -0.015em;
+}
+
+h3 {
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+}
+
+p {
+    max-width: 65ch;
+    margin-top: 0;
+    margin-bottom: var(--luft);
+    transition: color 0.4s ease;
+}
+
+a {
+    color: var(--primar);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1.5px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ==========================================================================
+   5 · Sidhuvud och meny: Frostat glas ovanpå bakgrunden
+   ========================================================================== */
+.sidhuvud {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: calc(var(--luft) * 1.25);
+    padding: calc(var(--luft) * 1.25) calc(var(--luft) * 1.5);
+    background: var(--glas-bakgrund);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--glas-kant);
+    box-shadow: var(--glas-sken), 0 8px 24px -6px var(--skugga);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.roll {
+    margin: 0.25rem 0 0 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-dampad);
+    letter-spacing: 0.01em;
+}
+
+nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    display: inline-block;
+    padding: 0.45rem 0.95rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border-radius: 9999px;
+    color: var(--text);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+nav a:hover {
+    background: rgba(125, 125, 125, 0.15);
+    color: var(--primar);
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   6 · Innehållsytan, intro & knappar
+   ========================================================================== */
+main {
+    max-width: 70rem;
+    margin: 0 auto;
+    padding: 0 calc(var(--luft) * 1.5);
+    position: relative;
+    z-index: 2;
+}
+
+section {
+    padding: calc(var(--luft) * 3) 0;
+    border-bottom: 1px solid var(--glas-kant);
+    transition: border-color 0.4s ease;
+}
+
+section:last-of-type {
+    border-bottom: none;
+}
+
+/* Introduktionssektionen: Luftig och skarp */
+.intro {
+    padding-top: calc(var(--luft) * 4);
+    padding-bottom: calc(var(--luft) * 4);
+}
+
+.intro h2 {
+    font-size: 2.2rem;
+    line-height: 1.15;
+    max-width: 24ch;
+}
+
+.intro p {
+    font-size: 1.2rem;
+    color: var(--text-dampad);
+    max-width: 48ch;
+    margin-bottom: calc(var(--luft) * 1.75);
+}
+
+/* Handlingsknapp: Modern pill-knapp med mjuk lyft-effekt */
+.knapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.6rem;
+    background: var(--accent);
+    color: var(--knapptext);
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 9999px;
+    box-shadow: 0 4px 14px 0 rgba(196, 78, 35, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.knapp:hover {
+    background: var(--accent-hov);
+    color: var(--knapptext);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px 0 rgba(196, 78, 35, 0.5);
+}
+
+/* Om mig: Bild och text */
+#om img {
+    border-radius: var(--radie);
+    border: 1px solid var(--glas-kant);
+    box-shadow: 0 16px 36px -8px var(--skugga);
+    object-fit: cover;
+    margin-bottom: calc(var(--luft) * 1.5);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Kontaktsektionen */
+#kontakt p a {
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   7 · Kort i ett rutnät: Glansiga glaspartier som bryter bakgrundsljuset
+   ========================================================================== */
+.rutnat {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: calc(var(--luft) * 1.5);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Boxarna som glansiga glaspartier */
+.kort {
+    position: relative;
+    overflow: hidden;
+    background: var(--glas-bakgrund);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    padding: calc(var(--luft) * 1.75);
+    border: 1px solid var(--glas-kant);
+    border-radius: var(--radie);
+    box-shadow: var(--glas-sken), 0 14px 34px -8px var(--skugga);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.4s ease;
+}
+
+/* Glansig spegelblank ljusreflex i överkant */
+.kort::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 55%;
+    background: var(--glas-reflektion);
+    pointer-events: none;
+    border-radius: var(--radie) var(--radie) 0 0;
+    z-index: 1;
+    transition: background 0.4s ease;
+}
+
+/* Allt innehåll i kortet hålls ovanför ljusreflexen för kristallklar skärpa */
+.kort>* {
+    position: relative;
+    z-index: 2;
+}
+
+/* Mjuk lyft- och glanseffekt vid hovring */
+.kort:hover {
+    transform: translateY(-5px);
+    border-color: var(--glas-hover-border);
+    box-shadow:
+        var(--glas-hover-sken),
+        0 20px 40px -10px var(--skugga),
+        0 0 25px 0 rgba(232, 106, 58, 0.2);
+}
+
+.kort h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.kort p {
+    margin-bottom: 0;
+    color: var(--text);
+}
+
+.kort img {
+    border-radius: calc(var(--radie) - 6px);
+    margin-bottom: var(--luft);
+    border: 1px solid var(--glas-kant);
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    background: rgba(125, 125, 125, 0.05);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 4px 12px -2px var(--skugga);
+}
+
+/* ==========================================================================
+   8 · Större skärmar (Desktop & surfplattor)
+   ========================================================================== */
+button {
+    font-family: var(--typsnitt-brod);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.55rem 1.15rem;
+    color: var(--primar);
+    background: var(--glas-bakgrund);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid var(--glas-kant);
+    border-radius: 9999px;
+    box-shadow: var(--glas-sken), 0 4px 12px -2px var(--skugga);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease, border-color 0.2s ease, color 0.4s ease;
+}
+
+button:hover {
+    background: rgba(125, 125, 125, 0.15);
+    transform: translateY(-1px);
+}
+
+/* Tydlig fokusram för god tillgänglighet vid tangentbordsnavigering */
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+footer {
+    padding: calc(var(--luft) * 3) calc(var(--luft) * 1.5);
+    text-align: center;
+    background: var(--glas-bakgrund);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--glas-kant);
+    color: var(--text-dampad);
+    font-size: 0.95rem;
+    position: relative;
+    z-index: 2;
+    transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+footer p {
+    margin: 0 auto;
+}
+
+@media (min-width: 48rem) {
+    .sidhuvud {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: calc(var(--luft) * 1.25) calc(var(--luft) * 3);
+    }
+
+    h1 {
+        font-size: 2.3rem;
+    }
+
+    h2 {
+        font-size: 2.1rem;
+    }
+
+    .intro h2 {
+        font-size: 2.75rem;
+    }
+
+    /* Rutnät med fler kolumner på större skärmar */
+    .rutnat {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: calc(var(--luft) * 2);
+    }
+
+    /* Om mig: Tvåkolumnslayout på desktop */
+    #om {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        grid-template-areas:
+            "rubrik rubrik"
+            "bild text1"
+            "bild text2";
+        column-gap: calc(var(--luft) * 3);
+        row-gap: 0.75rem;
+        align-items: start;
+    }
+
+    #om h2 {
+        grid-area: rubrik;
+    }
+
+    #om img {
+        grid-area: bild;
+        margin-bottom: 0;
+        width: 100%;
+        max-width: 280px;
+    }
+
+    #om p:nth-of-type(1) {
+        grid-area: text1;
+    }
+
+    #om p:nth-of-type(2) {
+        grid-area: text2;
+    }
+}
+
+/* ==========================================================================
+   9 · Mörkt läge: nya färger när body har klassen morkt
+   Inspiration: Mörkt djup, analog färgblödning, mjukt ljusläckage & filmkorn
+   ========================================================================== */
+body.morkt {
+    /* ✦ BAKGRUNDENS FÄRGER (Mörkt läge: mörk bas, rika diffusa färgfält) ✦ */
+    --background: #050812;
+    /* Mörkaste basen: nästan svart midnattsblå */
+    --background-dark: #080B16;
+    /* Djup marinblå ton i mitten */
+    --blue: #073B66;
+    /* Djupblå lugnande kärna i mitten */
+    --cyan: #00A9B7;
+    /* Diffust cyan/turkost ljusfält längs kanten */
+    --orange: #E86A3A;
+    /* Varmt orange ljusläckage i övre hörnet */
+    --coral: #D85B58;
+    /* Dämpad korall & analog färgblödning */
+    --purple: #552A65;
+    /* Mörk lila övergångston */
+    --magenta: #822659;
+    /* Subtil dämpad magenta */
+    --vignette-farg: rgba(5, 8, 18, 0.75);
+
+    /* Text- och elementfärger (optimerade för perfekt kontrast > 14:1) */
+    --text: #f0f2f5;
+    /* Kristallklar, mjukt vit text */
+    --text-dampad: #9ca3af;
+    /* Dämpad silvergrå text för ingress & datum */
+    --primar: #ffffff;
+    /* Vita, rena rubriker */
+    --accent: #E86A3A;
+    /* Varm korallorange accentfärg */
+    --accent-hov: #cf5527;
+    /* Mörkare accent vid hovring */
+    --knapptext: #ffffff;
+    /* Textfärg på knapp */
+
+    /* Glansiga glaspartier (Mörkt frostat nattglas som bryter bakgrundens ljus) */
+    --glas-bakgrund: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 45%, rgba(255, 255, 255, 0.07) 100%), rgba(8, 12, 22, 0.70);
+    --glas-kant: rgba(255, 255, 255, 0.16);
+    --glas-reflektion: linear-gradient(175deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 55%, transparent 100%);
+    --glas-sken: inset 0 1px 1px 0 rgba(255, 255, 255, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    --glas-hover-border: rgba(255, 255, 255, 0.35);
+    --glas-hover-sken: inset 0 1px 2px 0 rgba(255, 255, 255, 0.6);
+
+    --skugga: rgba(0, 0, 0, 0.55);
+}
