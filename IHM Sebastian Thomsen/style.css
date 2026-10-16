@@ -269,57 +269,362 @@ img {
 }
 
 /* ==========================================================================
-   5 · Sidhuvud och meny: Frostat glas ovanpå bakgrunden
+   5 · Sidhuvud och meny: Frostat glas med Pelmatech-inspiration
    ========================================================================== */
 .sidhuvud {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: calc(var(--luft) * 1.25);
-    padding: calc(var(--luft) * 1.25) calc(var(--luft) * 1.5);
-    background: var(--glas-bakgrund);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-bottom: 1px solid var(--glas-kant);
-    box-shadow: var(--glas-sken), 0 8px 24px -6px var(--skugga);
     position: sticky;
     top: 0;
     z-index: 100;
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    /* Frostat glas med subtil vertikal linjestruktur som i inspo-bilden */
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 28px,
+            rgba(255, 255, 255, 0.035) 28px,
+            rgba(255, 255, 255, 0.035) 29px
+        ),
+        var(--glas-bakgrund);
+    backdrop-filter: blur(24px) saturate(190%);
+    -webkit-backdrop-filter: blur(24px) saturate(190%);
+    border-bottom: 1px solid var(--glas-kant);
+    box-shadow: 0 8px 32px -8px var(--skugga), var(--glas-sken);
     transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.roll {
-    margin: 0.25rem 0 0 0;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--text-dampad);
-    letter-spacing: 0.01em;
+.sidhuvud-container {
+    max-width: 76rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
 }
 
-nav ul {
+/* Vänsterdel: Logotyp och personligt varumärke */
+.logo-lank {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+    color: var(--primar);
+    font-family: var(--typsnitt-rubrik);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+    padding: 0.35rem 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.logo-lank:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+.logo-ikon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.5) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    color: var(--primar);
+    box-shadow: 0 2px 8px -1px var(--skugga), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+body.morkt .logo-ikon {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.logo-namn {
+    white-space: nowrap;
+}
+
+/* Mittenparti: Navigationsmeny i flytande pillerform med frostat glas */
+.huvudnav {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 9999px;
+    padding: 0.3rem 0.4rem;
+    box-shadow: 0 4px 16px -2px rgba(22, 50, 79, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+body.morkt .huvudnav {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 6px 20px -2px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+.nav-lista {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-nav a {
-    display: inline-block;
-    padding: 0.45rem 0.95rem;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: none;
-    border-radius: 9999px;
-    color: var(--text);
-    transition: background-color 0.2s ease, color 0.2s ease;
+.nav-punkt {
+    margin: 0;
 }
 
-nav a:hover {
-    background: rgba(125, 125, 125, 0.15);
+.nav-lank {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.42rem 0.95rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+    color: var(--text-dampad);
+    transition: all 0.25s ease;
+}
+
+.nav-lank:hover {
+    color: var(--primar);
+    background: rgba(125, 125, 125, 0.09);
+    text-decoration: none;
+}
+
+/* Aktiv flik med inre pill-bakgrund och pulserande grön prick */
+.nav-lank.aktiv {
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--primar);
+    font-weight: 700;
+    box-shadow: 0 2px 8px -1px rgba(22, 50, 79, 0.1), inset 0 1px 1px rgba(255, 255, 255, 1);
+}
+
+body.morkt .nav-lank.aktiv {
+    background: rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+    box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.aktiv-prick {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 8px #10b981;
+    display: inline-block;
+    flex-shrink: 0;
+    animation: prickPuls 2s ease-in-out infinite;
+}
+
+@keyframes prickPuls {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.55;
+        transform: scale(0.85);
+    }
+}
+
+/* Dekorativ plus-separator mellan länkar som i inspo-bilden */
+.nav-separator {
+    color: #10b981;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0 0.15rem;
+    opacity: 0.75;
+    user-select: none;
+}
+
+/* Högerdel: CTA, Tema och Mobilmeny */
+.sidhuvud-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+/* Tydlig CTA för "Kontakt" i frostat glas */
+.cta-kontakt {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 1.15rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    text-decoration: none;
+    color: var(--primar);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 14px -2px rgba(22, 50, 79, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.95);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+body.morkt .cta-kontakt {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.08) 100%);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+}
+
+.cta-kontakt:hover {
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.75) 100%);
+    border-color: #ffffff;
+    box-shadow: 0 6px 18px -2px rgba(22, 50, 79, 0.18), inset 0 1px 2px rgba(255, 255, 255, 1);
     color: var(--primar);
     text-decoration: none;
+}
+
+body.morkt .cta-kontakt:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.14) 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 6px 20px -2px rgba(0, 0, 0, 0.65), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+}
+
+.cta-pil {
+    transition: transform 0.2s ease;
+}
+
+.cta-kontakt:hover .cta-pil {
+    transform: translate(2px, -2px);
+}
+
+/* Squircle-ikonknappar (mörkerläge och meny) som i inspo-bilden */
+.ikon-knapp {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--glas-bakgrund);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid var(--glas-kant);
+    color: var(--primar);
+    box-shadow: var(--glas-sken), 0 3px 10px -2px var(--skugga);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.ikon-knapp:hover {
+    background: rgba(125, 125, 125, 0.15);
+    transform: translateY(-1px);
+}
+
+/* Tema-växlare: Sol och måne */
+.tema-knapp .ikon-sol {
+    display: none;
+}
+
+.tema-knapp .ikon-mane {
+    display: block;
+}
+
+body.morkt .tema-knapp .ikon-sol {
+    display: block;
+    color: #fbbf24;
+}
+
+body.morkt .tema-knapp .ikon-mane {
+    display: none;
+}
+
+/* Hamburgermeny för mindre skärmar */
+.meny-knapp {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.meny-knapp .streck {
+    width: 16px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.meny-knapp[aria-expanded="true"] .streck:first-child {
+    transform: translateY(3px) rotate(45deg);
+}
+
+.meny-knapp[aria-expanded="true"] .streck:last-child {
+    transform: translateY(-3px) rotate(-45deg);
+}
+
+/* Mobilanpassning för sidhuvudet */
+@media (max-width: 48rem) {
+    .sidhuvud {
+        padding: 0.65rem 1rem;
+    }
+
+    .meny-knapp {
+        display: inline-flex;
+    }
+
+    .huvudnav {
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        left: 1rem;
+        right: 1rem;
+        border-radius: 18px;
+        padding: 0.75rem;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        background: var(--glas-bakgrund);
+        backdrop-filter: blur(28px);
+        -webkit-backdrop-filter: blur(28px);
+        box-shadow: 0 16px 36px -4px var(--skugga);
+    }
+
+    .huvudnav.oppen {
+        display: flex;
+    }
+
+    .nav-lista {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 0.35rem;
+    }
+
+    .nav-separator {
+        display: none;
+    }
+
+    .nav-lank {
+        padding: 0.65rem 1rem;
+        border-radius: 12px;
+        width: 100%;
+    }
+
+    .cta-kontakt {
+        padding: 0.45rem 0.85rem;
+        font-size: 0.85rem;
+    }
+
+    .logo-namn {
+        font-size: 1rem;
+    }
 }
 
 /* ==========================================================================
@@ -528,13 +833,6 @@ footer p {
 }
 
 @media (min-width: 48rem) {
-    .sidhuvud {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: calc(var(--luft) * 1.25) calc(var(--luft) * 3);
-    }
-
     h1 {
         font-size: 2.3rem;
     }

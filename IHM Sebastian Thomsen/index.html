@@ -14,9 +14,23 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-PD2MC9BB');</script>
+    <!-- End Google Tag Manager -->
 </head>
 
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PD2MC9BB" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <!-- ✦ Premium statisk och experimentell gradientbakgrund ✦ -->
     <div class="art-bakgrund" aria-hidden="true">
         <div class="art-ljus art-ljus-cyan"></div>
@@ -30,19 +44,73 @@
     </div>
 
     <header class="sidhuvud">
-        <div>
-            <h1>Sebastian Thomsen</h1>
-            <p class="roll">Digital Marketing Specialist i Göteborg</p>
+        <div class="sidhuvud-container">
+            <!-- Vänster: Logomärke och namn -->
+            <a href="#" class="logo-lank" aria-label="Sebastian Thomsen – Startsida">
+                <span class="logo-ikon" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 8h6a4 4 0 0 1 4 4v0a4 4 0 0 1-4 4H7" />
+                        <path d="M17 16H11a4 4 0 0 1-4-4v0a4 4 0 0 1 4-4h6" />
+                    </svg>
+                </span>
+                <span class="logo-namn">Sebastian Thomsen</span>
+            </a>
+
+            <!-- Mitten: Navigationsmeny (Frostat glas-piller) -->
+            <nav class="huvudnav" aria-label="Huvudmeny">
+                <ul class="nav-lista">
+                    <li class="nav-punkt">
+                        <a href="#om" class="nav-lank aktiv">
+                            <span class="aktiv-prick" aria-hidden="true"></span>
+                            <span>Om mig</span>
+                        </a>
+                    </li>
+                    <li class="nav-punkt">
+                        <a href="#tjanster" class="nav-lank">Vad jag gör</a>
+                    </li>
+                    <li class="nav-separator" aria-hidden="true">+</li>
+                    <li class="nav-punkt">
+                        <a href="#projekt" class="nav-lank">Kompetenser</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Högerdel: CTA, Tema och Mobilknapp -->
+            <div class="sidhuvud-actions">
+                <!-- Tydligare CTA-knapp för Kontakt i frostat glas -->
+                <a href="#kontakt" class="cta-kontakt">
+                    <span>Kontakt</span>
+                    <svg class="cta-pil" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                </a>
+
+                <!-- Mörkerläge-knapp som squircle med ikon -->
+                <button id="tema" class="ikon-knapp tema-knapp" type="button" aria-label="Växla mörkt läge" title="Växla mellan ljust och mörkt läge">
+                    <svg class="ikon-sol" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="ikon-mane" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+
+                <!-- Mobil hamburgermeny -->
+                <button id="mobilmeny-knapp" class="ikon-knapp meny-knapp" type="button" aria-label="Öppna navigationsmeny" aria-expanded="false">
+                    <span class="streck"></span>
+                    <span class="streck"></span>
+                </button>
+            </div>
         </div>
-        <nav aria-label="Huvudmeny">
-            <ul>
-                <li><a href="#om">Om mig</a></li>
-                <li><a href="#tjanster">Vad jag gör</a></li>
-                <li><a href="#Kompetenser">Kompetenser</a></li>
-                <li><a href="#kontakt">Kontakt</a></li>
-            </ul>
-        </nav>
-        <button id="tema" type="button" hidden>Byt till mörkt läge</button>
     </header>
 
     <main>
@@ -81,7 +149,7 @@
                 </li>
             </ul>
         </section>
-
+        <div id="Kompetenser" style="scroll-margin-top: 5rem;"></div>
         <section id="projekt">
             <h2>Projekt</h2>
             <div class="rutnat">
