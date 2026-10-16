@@ -33,8 +33,8 @@ html {
     /* Mjuk syren/puderlila */
     --magenta: #d98aa8;
     /* Dämpad rosenmagenta */
-    --blur-grad: 36px;
-    /* Skarpare och mer definierade ljusfält som framträder tydligt runtom de frostade glasboxarna */
+    --blur-grad: 140px;
+    /* Kraftig oskärpa för mjuka fält */
     --vignette-farg: rgba(220, 214, 202, 0.45);
     /* Mjuk ljustonad kant */
 
@@ -56,9 +56,9 @@ html {
     --knapptext: #ffffff;
     /* Textfärg på knapp */
 
-    /* Glansiga glaspartier (Ljust läge: halvtransparent frostat glas som bryter den skarpa bakgrunden) */
-    --glas-bakgrund: linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.28) 48%, rgba(255, 255, 255, 0.52) 100%);
-    --glas-kant: rgba(255, 255, 255, 0.88);
+    /* Glansiga glaspartier (Ljust läge: krispigt vitt frostat glas) */
+    --glas-bakgrund: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.48) 45%, rgba(255, 255, 255, 0.70) 100%);
+    --glas-kant: rgba(255, 255, 255, 0.90);
     --glas-reflektion: linear-gradient(175deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.08) 55%, transparent 100%);
     --glas-sken: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), inset 0 0 0 1px rgba(255, 255, 255, 0.45);
     --glas-hover-border: rgba(255, 255, 255, 1);
@@ -71,52 +71,123 @@ html {
 }
 
 /* ==========================================================================
-   3 · STATISK FÖRLÄNGD GRADIENTBAKGRUND (SCROLLAR MED SIDAN)
+   3 · STATISK EXPERIMENTELL GRADIENTBAKGRUND (HELT UTAN ANIMATIONER)
    ========================================================================== */
 
-/* Huvudbehållare: Täcker hela dokumentets höjd så att man scrollar ner på bakgrunden */
+/* Huvudbehållare: Ligger fixerad längst bak över hela viewporten */
 .art-bakgrund {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    min-height: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background-color: var(--background);
+    background-image: radial-gradient(circle at 50% 50%, var(--background-dark) 0%, var(--background) 100%);
     overflow: hidden;
     z-index: -1;
     pointer-events: none;
+    /* Ser till att besökaren kan klicka rakt igenom bakgrunden */
     transition: background-color 0.4s ease;
 }
 
-/* Generativ monokrom mesh-gradientbakgrund:
-   Tona ner färgerna och dra ner opaciteten med ca 50% för en lugn, exklusiv och monokrom känsla */
-.art-bild {
+/* Gemensam stil för de organiska färgfälten: stora, suddiga och mjuka */
+.art-ljus {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('img/bakgrund.jpg');
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    opacity: 0.44; /* Ca 50% neddragen opacitet */
-    filter: saturate(50%) contrast(96%); /* Dämpade toner för monokrom finish */
-    transition: opacity 0.4s ease, filter 0.4s ease;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
+    transition: background 0.4s ease, opacity 0.4s ease;
 }
 
-body.morkt .art-bild {
-    opacity: 0.40;
-    filter: saturate(45%) contrast(100%);
+/* FÄLT 1: Mjukt cyan/turkost fält längs nedre och vänstra kanten */
+.art-ljus-cyan {
+    bottom: -15vh;
+    left: -12vw;
+    width: 65vw;
+    height: 65vw;
+    max-width: 950px;
+    max-height: 950px;
+    background: radial-gradient(circle, var(--cyan) 0%, rgba(0, 169, 183, 0.45) 45%, transparent 75%);
+    border-radius: 46% 54% 60% 40% / 50% 45% 55% 50%;
+    filter: blur(var(--blur-grad));
+    opacity: 0.55;
 }
 
-/* VIGNETTE: Mjuk analog toning mot kanterna */
+/* FÄLT 2: Varmt orange ljusfält mot övre och högra kanten */
+.art-ljus-orange {
+    top: -15vh;
+    right: -10vw;
+    width: 60vw;
+    height: 60vw;
+    max-width: 880px;
+    max-height: 880px;
+    background: radial-gradient(circle, var(--orange) 0%, rgba(232, 106, 58, 0.45) 45%, transparent 75%);
+    border-radius: 55% 45% 40% 60% / 45% 55% 50% 50%;
+    filter: blur(var(--blur-grad));
+    opacity: 0.52;
+}
+
+/* FÄLT 3: Korall & dämpad färgblödning mot höger mittsektion */
+.art-ljus-korall {
+    top: 28vh;
+    right: 4vw;
+    width: 50vw;
+    height: 48vw;
+    max-width: 720px;
+    max-height: 700px;
+    background: radial-gradient(ellipse, var(--coral) 0%, rgba(216, 91, 88, 0.35) 50%, transparent 75%);
+    border-radius: 60% 40% 50% 50% / 40% 60% 50% 50%;
+    filter: blur(calc(var(--blur-grad) * 1.15));
+    opacity: 0.42;
+}
+
+/* FÄLT 4: Djupblått område runt mitten – skapar ett lugnt, harmoniskt centrum */
+.art-ljus-bla {
+    top: 25vh;
+    left: 20vw;
+    width: 62vw;
+    height: 52vw;
+    max-width: 900px;
+    max-height: 800px;
+    background: radial-gradient(circle, var(--blue) 0%, rgba(7, 59, 102, 0.45) 55%, transparent 75%);
+    border-radius: 50% 50% 45% 55% / 55% 45% 55% 45%;
+    filter: blur(calc(var(--blur-grad) * 1.25));
+    opacity: 0.65;
+}
+
+/* FÄLT 5: Mörk lila övergång i övre vänstra området */
+.art-ljus-lila {
+    top: -5vh;
+    left: 12vw;
+    width: 48vw;
+    height: 48vw;
+    max-width: 700px;
+    max-height: 700px;
+    background: radial-gradient(circle, var(--purple) 0%, rgba(85, 42, 101, 0.35) 45%, transparent 75%);
+    border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
+    filter: blur(var(--blur-grad));
+    opacity: 0.48;
+}
+
+/* FÄLT 6: Subtil dämpad magenta i nedre mitten för analog fotokänsla */
+.art-ljus-magenta {
+    bottom: -10vh;
+    right: 18vw;
+    width: 46vw;
+    height: 42vw;
+    max-width: 680px;
+    max-height: 620px;
+    background: radial-gradient(circle, var(--magenta) 0%, rgba(130, 38, 89, 0.30) 40%, transparent 75%);
+    border-radius: 50% 50% 40% 60% / 60% 40% 50% 50%;
+    filter: blur(calc(var(--blur-grad) * 1.2));
+    opacity: 0.35;
+}
+
+/* VIGNETTE: Mjuk analog toning mot kanterna för djup */
 .art-vignette {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(ellipse at center, transparent 65%, var(--vignette-farg) 100%);
+    background: radial-gradient(ellipse at center, transparent 45%, var(--vignette-farg) 100%);
     pointer-events: none;
     transition: background 0.4s ease;
 }
@@ -125,8 +196,6 @@ body.morkt .art-bild {
 .art-grain {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='filmGrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23filmGrain)' opacity='0.045'/%3E%3C/svg%3E");
     pointer-events: none;
     mix-blend-mode: overlay;
@@ -143,8 +212,6 @@ body {
     line-height: 1.65;
     color: var(--text);
     background-color: var(--background);
-    position: relative;
-    min-height: 100vh;
     overflow-x: hidden;
     transition: color 0.4s ease, background-color 0.4s ease;
 }
@@ -211,12 +278,14 @@ img {
     width: 100%;
     padding: 0.75rem 1.25rem;
     /* Frostat glas med subtil vertikal linjestruktur som i inspo-bilden */
-    background:
-        repeating-linear-gradient(90deg,
+    background: 
+        repeating-linear-gradient(
+            90deg,
             transparent,
             transparent 28px,
             rgba(255, 255, 255, 0.035) 28px,
-            rgba(255, 255, 255, 0.035) 29px),
+            rgba(255, 255, 255, 0.035) 29px
+        ),
         var(--glas-bakgrund);
     backdrop-filter: blur(24px) saturate(190%);
     -webkit-backdrop-filter: blur(24px) saturate(190%);
@@ -357,13 +426,10 @@ body.morkt .nav-lank.aktiv {
 }
 
 @keyframes prickPuls {
-
-    0%,
-    100% {
+    0%, 100% {
         opacity: 1;
         transform: scale(1);
     }
-
     50% {
         opacity: 0.55;
         transform: scale(0.85);
@@ -582,453 +648,59 @@ section:last-of-type {
     border-bottom: none;
 }
 
-/* ==========================================================================
-   6 · Hero-sektion: Redaktionell monokrom porträttkomposition & frostat glas
-   ========================================================================== */
-.hero-sektion {
-    padding: 1.5rem 0 3.5rem 0;
-    position: relative;
-    z-index: 2;
+/* Introduktionssektionen: Luftig och skarp */
+.intro {
+    padding-top: calc(var(--luft) * 4);
+    padding-bottom: calc(var(--luft) * 4);
 }
 
-.hero-glaspanel {
-    position: relative;
-    overflow: hidden;
-    border-radius: 28px;
-    padding: 2.25rem 2.75rem;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.58) 0%, rgba(255, 255, 255, 0.28) 45%, rgba(255, 255, 255, 0.48) 100%);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.85);
-    box-shadow: 0 24px 64px -16px var(--skugga), var(--glas-sken);
-    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+.intro h2 {
+    font-size: 2.2rem;
+    line-height: 1.15;
+    max-width: 24ch;
 }
 
-body.morkt .hero-glaspanel {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 45%, rgba(255, 255, 255, 0.05) 100%), rgba(8, 14, 26, 0.60);
-    border-color: rgba(255, 255, 255, 0.16);
-    box-shadow: 0 28px 72px -16px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.28);
+.intro p {
+    font-size: 1.2rem;
+    color: var(--text-dampad);
+    max-width: 48ch;
+    margin-bottom: calc(var(--luft) * 1.75);
 }
 
-/* Överdimensionerade bakgrundsbokstäver (Inspo 1 - Daniel Lee) */
-.hero-bg-typografi {
-    position: absolute;
-    top: 6%;
-    left: -2%;
-    z-index: 1;
-    pointer-events: none;
-    user-select: none;
-    font-family: var(--typsnitt-rubrik);
-    font-weight: 800;
-    font-size: clamp(6.5rem, 17vw, 15rem);
-    line-height: 0.8;
-    letter-spacing: -0.04em;
-    color: rgba(22, 50, 79, 0.05);
-    white-space: nowrap;
-    opacity: 0.9;
-}
-
-body.morkt .hero-bg-typografi {
-    color: rgba(255, 255, 255, 0.04);
-}
-
-/* Panelens topprad (Inspo 2 & 3: Rundad badge & stjärnemblem) */
-.hero-topp {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    z-index: 2;
-    margin-bottom: 2rem;
-}
-
-.hero-pill-tag {
+/* Handlingsknapp: Modern pill-knapp med mjuk lyft-effekt */
+.knapp {
     display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.35rem 0.85rem;
-    border-radius: 9999px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.85);
-    color: var(--primar);
-    box-shadow: 0 2px 8px -2px rgba(22, 50, 79, 0.08);
-}
-
-body.morkt .hero-pill-tag {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.16);
-    color: #ffffff;
-    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.4);
-}
-
-.puls-punkt {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #10b981;
-    box-shadow: 0 0 8px #10b981;
-    animation: prickPuls 2s ease-in-out infinite;
-}
-
-.hero-emblem {
-    display: flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    color: var(--primar);
-    box-shadow: 0 2px 8px -2px var(--skugga);
-}
-
-body.morkt .hero-emblem {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.16);
-    color: #ffffff;
-}
-
-/* Huvudyta: Porträtt till vänster, information till höger */
-.hero-kropp {
-    display: grid;
-    grid-template-columns: 1fr 1.15fr;
-    gap: 3.5rem;
-    align-items: center;
-    position: relative;
-    z-index: 2;
-    margin-bottom: 2.25rem;
-}
-
-/* Porträttbehållare: Skarp svartvit silhuett med redaktionell typografi (Inspo 1) */
-.hero-portratt-container {
-    position: relative;
-    border-radius: 22px;
-    overflow: hidden;
-    background: #000000;
-    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.2);
-}
-
-.hero-portratt-bild {
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
-    object-position: 50% 18%;
-    display: block;
-    filter: grayscale(100%) contrast(1.12) brightness(0.96);
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
-}
-
-.hero-portratt-container:hover .hero-portratt-bild {
-    transform: scale(1.025);
-    filter: grayscale(100%) contrast(1.16) brightness(1.02);
-}
-
-.hero-portratt-gradient {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.45) 75%, rgba(0, 0, 0, 0.90) 100%);
-    pointer-events: none;
-}
-
-.hero-namnblock {
-    position: absolute;
-    bottom: 1.5rem;
-    left: 1.5rem;
-    right: 1.5rem;
-    z-index: 3;
-}
-
-.hero-namn {
-    font-family: var(--typsnitt-rubrik);
-    font-size: clamp(1.4rem, 2.3vw, 1.85rem);
-    font-weight: 800;
-    color: #ffffff;
-    letter-spacing: -0.01em;
-    margin: 0;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-}
-
-.hero-undertitel {
-    font-size: 0.74rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.85);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin: 0.35rem 0 0 0;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
-}
-
-/* Högerdel: Redaktionell typografi och data-tabell */
-.hero-info-kolumn {
-    display: flex;
-    flex-direction: column;
-}
-
-.hero-kicker {
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.65rem;
-    display: block;
-}
-
-.hero-huvudrubrik {
-    font-size: clamp(2rem, 3.6vw, 3.1rem);
-    line-height: 1.12;
-    font-weight: 800;
-    letter-spacing: -0.025em;
-    color: var(--primar);
-    margin: 0 0 1.15rem 0;
-}
-
-.rubrik-tunn {
-    font-weight: 400;
-    opacity: 0.82;
-}
-
-.hero-ingress {
-    font-size: 1.05rem;
-    line-height: 1.65;
-    color: var(--text-dampad);
-    margin: 0 0 1.65rem 0;
-    max-width: 44ch;
-}
-
-/* Datarader (Inspo 1 - Daniel Lee) */
-.hero-data-tabell {
-    border-top: 1px solid rgba(125, 125, 125, 0.2);
-    margin-bottom: 1.75rem;
-}
-
-.hero-data-rad {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.6rem 0;
-    border-bottom: 1px solid rgba(125, 125, 125, 0.14);
-    font-size: 0.86rem;
-}
-
-.data-siffra {
-    font-family: var(--typsnitt-rubrik);
-    font-weight: 700;
-    color: var(--primar);
-    letter-spacing: 0.05em;
-}
-
-.data-text {
-    color: var(--text-dampad);
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    text-align: right;
-}
-
-.gron-status-punkt {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #10b981;
-    box-shadow: 0 0 6px #10b981;
-    display: inline-block;
-}
-
-/* Knappar i frostat glas (Inspo 2 & 3) */
-.hero-knappgrupp {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.85rem;
-}
-
-.hero-cta-knapp {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    padding: 0.8rem 1.65rem;
-    border-radius: 9999px;
+    padding: 0.85rem 1.6rem;
     background: var(--accent);
     color: var(--knapptext);
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 1rem;
     text-decoration: none;
-    box-shadow: 0 4px 16px -2px rgba(196, 78, 35, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.4);
-    transition: all 0.25s ease;
+    border-radius: 9999px;
+    box-shadow: 0 4px 14px 0 rgba(196, 78, 35, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-.hero-cta-knapp:hover {
+.knapp:hover {
     background: var(--accent-hov);
     color: var(--knapptext);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px -2px rgba(196, 78, 35, 0.55);
-    text-decoration: none;
+    box-shadow: 0 6px 20px 0 rgba(196, 78, 35, 0.5);
 }
 
-.hero-sekundar-knapp {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    padding: 0.8rem 1.45rem;
-    border-radius: 9999px;
-    background: var(--glas-bakgrund);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid var(--glas-kant);
-    color: var(--primar);
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: none;
-    box-shadow: var(--glas-sken);
-    transition: all 0.25s ease;
-}
-
-.hero-sekundar-knapp:hover {
-    background: rgba(125, 125, 125, 0.15);
-    transform: translateY(-2px);
-    color: var(--primar);
-    text-decoration: none;
-}
-
-/* Nedre tidslinje & markör (Inspo 1, 2, 3) */
-.hero-botten-linje {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.25rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid rgba(125, 125, 125, 0.16);
-    position: relative;
-    z-index: 2;
-}
-
-.linje-etikett {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-dampad);
-    white-space: nowrap;
-}
-
-.linje-spar {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.linje-punkt {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--text-dampad);
-    opacity: 0.6;
-}
-
-.linje-streck {
-    flex: 1;
-    height: 1px;
-    background: rgba(125, 125, 125, 0.2);
-}
-
-.linje-center-badge {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.9);
-    color: var(--primar);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-}
-
-body.morkt .linje-center-badge {
-    background: rgba(255, 255, 255, 0.14);
-    border-color: rgba(255, 255, 255, 0.24);
-    color: #ffffff;
-}
-
-/* Om mig-sektionen som frostat glaskort */
-#om {
-    background: var(--glas-bakgrund);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid var(--glas-kant);
+/* Om mig: Bild och text */
+#om img {
     border-radius: var(--radie);
-    padding: calc(var(--luft) * 2.5);
-    box-shadow: 0 14px 34px -8px var(--skugga), var(--glas-sken);
-    margin-bottom: calc(var(--luft) * 3);
-}
-
-.om-innehall p {
-    font-size: 1.15rem;
-    line-height: 1.7;
-    color: var(--text);
-    margin-bottom: 1rem;
-}
-
-.om-innehall .om-ingress {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--primar);
-}
-
-/* Responsiv anpassning för Hero */
-@media (max-width: 56rem) {
-    .hero-glaspanel {
-        padding: 1.5rem 1.25rem;
-        border-radius: 22px;
-    }
-
-    .hero-kropp {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .hero-portratt-bild {
-        height: 380px;
-    }
-
-    .hero-huvudrubrik {
-        font-size: 1.95rem;
-    }
-
-    .hero-data-tabell {
-        margin-bottom: 1.5rem;
-    }
-
-    .hero-bg-typografi {
-        font-size: 5rem;
-        top: 2%;
-    }
-}
-
-/* Kontaktsektionen som frostat glaskort */
-#kontakt {
-    background: var(--glas-bakgrund);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid var(--glas-kant);
-    border-radius: var(--radie);
-    padding: calc(var(--luft) * 2.5);
-    box-shadow: 0 14px 34px -8px var(--skugga), var(--glas-sken);
-    margin-bottom: calc(var(--luft) * 3);
+    box-shadow: 0 16px 36px -8px var(--skugga);
+    object-fit: cover;
+    margin-bottom: calc(var(--luft) * 1.5);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
+/* Kontaktsektionen */
 #kontakt p a {
     font-weight: 600;
 }
@@ -1050,8 +722,8 @@ body.morkt .linje-center-badge {
     position: relative;
     overflow: hidden;
     background: var(--glas-bakgrund);
-    backdrop-filter: blur(18px) saturate(180%);
-    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
     padding: calc(var(--luft) * 1.75);
     border: 1px solid var(--glas-kant);
     border-radius: var(--radie);
@@ -1178,6 +850,38 @@ footer p {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: calc(var(--luft) * 2);
     }
+
+    /* Om mig: Tvåkolumnslayout på desktop */
+    #om {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        grid-template-areas:
+            "rubrik rubrik"
+            "bild text1"
+            "bild text2";
+        column-gap: calc(var(--luft) * 3);
+        row-gap: 0.75rem;
+        align-items: start;
+    }
+
+    #om h2 {
+        grid-area: rubrik;
+    }
+
+    #om img {
+        grid-area: bild;
+        margin-bottom: 0;
+        width: 100%;
+        max-width: 280px;
+    }
+
+    #om p:nth-of-type(1) {
+        grid-area: text1;
+    }
+
+    #om p:nth-of-type(2) {
+        grid-area: text2;
+    }
 }
 
 /* ==========================================================================
@@ -1219,7 +923,7 @@ body.morkt {
     /* Textfärg på knapp */
 
     /* Glansiga glaspartier (Mörkt frostat nattglas som bryter bakgrundens ljus) */
-    --glas-bakgrund: linear-gradient(135deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.02) 48%, rgba(255, 255, 255, 0.06) 100%), rgba(8, 14, 26, 0.60);
+    --glas-bakgrund: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 45%, rgba(255, 255, 255, 0.07) 100%), rgba(8, 12, 22, 0.70);
     --glas-kant: rgba(255, 255, 255, 0.16);
     --glas-reflektion: linear-gradient(175deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 55%, transparent 100%);
     --glas-sken: inset 0 1px 1px 0 rgba(255, 255, 255, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
