@@ -278,14 +278,12 @@ img {
     width: 100%;
     padding: 0.75rem 1.25rem;
     /* Frostat glas med subtil vertikal linjestruktur som i inspo-bilden */
-    background: 
-        repeating-linear-gradient(
-            90deg,
+    background:
+        repeating-linear-gradient(90deg,
             transparent,
             transparent 28px,
             rgba(255, 255, 255, 0.035) 28px,
-            rgba(255, 255, 255, 0.035) 29px
-        ),
+            rgba(255, 255, 255, 0.035) 29px),
         var(--glas-bakgrund);
     backdrop-filter: blur(24px) saturate(190%);
     -webkit-backdrop-filter: blur(24px) saturate(190%);
@@ -426,10 +424,13 @@ body.morkt .nav-lank.aktiv {
 }
 
 @keyframes prickPuls {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
         transform: scale(1);
     }
+
     50% {
         opacity: 0.55;
         transform: scale(0.85);
@@ -700,9 +701,341 @@ section:last-of-type {
     transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* Kontaktsektionen */
-#kontakt p a {
+/* ==========================================================================
+   Kontaktformulär i minimalistiskt frostat glas
+   ========================================================================== */
+.kontakt-sektion {
+    scroll-margin-top: 5.5rem;
+    padding-top: calc(var(--luft) * 2);
+    padding-bottom: calc(var(--luft) * 4);
+    border-bottom: none;
+}
+
+.kontakt-kort {
+    position: relative;
+    overflow: hidden;
+    background: var(--glas-bakgrund);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid var(--glas-kant);
+    border-radius: calc(var(--radie) + 6px);
+    padding: calc(var(--luft) * 2.5);
+    box-shadow: var(--glas-sken), 0 20px 48px -12px var(--skugga);
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Ljusreflex i överkant som på de övriga glasboxarna */
+.kontakt-kort::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 45%;
+    background: var(--glas-reflektion);
+    pointer-events: none;
+    border-radius: calc(var(--radie) + 6px) calc(var(--radie) + 6px) 0 0;
+    z-index: 1;
+    transition: background 0.4s ease;
+}
+
+.kontakt-kort > * {
+    position: relative;
+    z-index: 2;
+}
+
+.kontakt-header {
+    margin-bottom: calc(var(--luft) * 2);
+}
+
+.kontakt-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid var(--glas-kant);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--primar);
+    margin-bottom: 0.85rem;
+    transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+}
+
+body.morkt .kontakt-pill {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.kontakt-kort h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
+}
+
+.kontakt-ingress {
+    color: var(--text-dampad);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 58ch;
+}
+
+/* Formulärets layout */
+.kontakt-formular {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-rad {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+}
+
+@media (min-width: 44rem) {
+    .form-rad {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.form-grupp {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.form-grupp label {
+    font-size: 0.9rem;
     font-weight: 600;
+    color: var(--primar);
+    letter-spacing: -0.01em;
+    transition: color 0.4s ease;
+}
+
+.form-grupp label .obligatorisk {
+    color: var(--accent);
+}
+
+/* Frostat glas inputs, select & textarea */
+.form-grupp input,
+.form-grupp select,
+.form-grupp textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: var(--typsnitt-brod);
+    font-size: 1rem;
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.60);
+    border: 1px solid var(--glas-kant);
+    border-radius: 12px;
+    padding: 0.85rem 1.05rem;
+    box-shadow: inset 0 1px 2px rgba(22, 50, 79, 0.03);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.4s ease, color 0.4s ease;
+}
+
+body.morkt .form-grupp input,
+body.morkt .form-grupp select,
+body.morkt .form-grupp textarea {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.16);
+    color: var(--text);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.form-grupp input::placeholder,
+.form-grupp textarea::placeholder {
+    color: var(--text-dampad);
+    opacity: 0.65;
+}
+
+.form-grupp select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23525a66' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+body.morkt .form-grupp select {
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* Focus-tillstånd */
+.form-grupp input:focus,
+.form-grupp select:focus,
+.form-grupp textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.90);
+    box-shadow: 0 0 0 3px rgba(196, 78, 35, 0.20), var(--glas-sken);
+}
+
+body.morkt .form-grupp input:focus,
+body.morkt .form-grupp select:focus,
+body.morkt .form-grupp textarea:focus {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(232, 106, 58, 0.30);
+}
+
+.form-grupp textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+.form-fel-meddelande {
+    font-size: 0.8rem;
+    color: #e53e3e;
+    min-height: 1rem;
+    display: none;
+}
+
+.form-grupp.har-fel .form-fel-meddelande {
+    display: block;
+}
+
+.form-grupp.har-fel input,
+.form-grupp.har-fel textarea {
+    border-color: #e53e3e;
+}
+
+/* Skicka-knapp i frostat glas & accent */
+.form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 0.5rem;
+}
+
+.kontakt-skicka-knapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.9rem 1.85rem;
+    background: var(--accent);
+    color: #ffffff;
+    font-family: var(--typsnitt-rubrik);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 8px 22px -4px rgba(196, 78, 35, 0.40);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.25s ease;
+}
+
+.kontakt-skicka-knapp:hover {
+    background: var(--accent-hov);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -6px rgba(196, 78, 35, 0.55);
+}
+
+.kontakt-skicka-knapp:active {
+    transform: translateY(0);
+}
+
+.kontakt-skicka-knapp .skicka-pil {
+    transition: transform 0.2s ease;
+}
+
+.kontakt-skicka-knapp:hover .skicka-pil {
+    transform: translate(2px, -2px);
+}
+
+/* Bekräftelsemeddelande */
+.kontakt-bekraftelse {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 14px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    margin-top: 1rem;
+    animation: fadaIn 0.35s ease;
+}
+
+@keyframes fadaIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.bekraftelse-ikon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: #10b981;
+    color: #ffffff;
+    font-weight: bold;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+}
+
+.bekraftelse-text h4 {
+    margin: 0 0 0.25rem 0;
+    color: var(--primar);
+    font-family: var(--typsnitt-rubrik);
+    font-size: 1.1rem;
+}
+
+.bekraftelse-text p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text);
+}
+
+/* Direktkontakt längst ner i kortet */
+.kontakt-direkt {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: calc(var(--luft) * 1.75);
+    margin-top: calc(var(--luft) * 1.5);
+    border-top: 1px solid var(--glas-kant);
+    font-size: 0.95rem;
+    color: var(--text-dampad);
+    transition: border-color 0.4s ease;
+}
+
+.direkt-lank {
+    color: var(--primar);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.direkt-lank:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+.direkt-sep {
+    opacity: 0.4;
+}
+
+@media (max-width: 44rem) {
+    .kontakt-kort {
+        padding: 1.5rem 1.25rem;
+        border-radius: 20px;
+    }
 }
 
 /* ==========================================================================
