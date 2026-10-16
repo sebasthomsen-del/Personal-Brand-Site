@@ -107,13 +107,28 @@ document.querySelectorAll('a[href="#kontakt"]').forEach(knapp => {
     });
 });
 
-// ✦ Validering och interaktiv hantering av kontaktformuläret ✦
+// Hjälpfunktion för att läsa cookies (t.ex. hubspotutk för besöksspårning)
+function hamtaCookie(namn) {
+    const cookiestrang = `; ${document.cookie}`;
+    const delar = cookiestrang.split(`; ${namn}=`);
+    if (delar.length === 2) return delar.pop().split(';').shift();
+    return null;
+}
+
+// ✦ Validering och koppling till HubSpot för kontaktformuläret ✦
 const kontaktForm = document.querySelector("#kontakt-form");
 const kontaktBekraftelse = document.querySelector("#kontakt-bekraftelse");
 const skickaKnapp = document.querySelector("#kontakt-skicka");
 
+// HubSpot-konfiguration för EU-portalen
+const HUBSPOT_CONFIG = {
+    portalId: "149565900",
+    formGuid: "0479e3ce-1fde-4111-9abd-8a85aa624419",
+    endpoint: "https://api-eu1.hsforms.com/submissions/v3/integration/submit/149565900/0479e3ce-1fde-4111-9abd-8a85aa624419"
+};
+
 if (kontaktForm) {
-    kontaktForm.addEventListener("submit", (e) => {
+    kontaktForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const namn = document.querySelector("#kontakt-namn");
@@ -155,7 +170,52 @@ if (kontaktForm) {
             skickaKnapp.disabled = true;
             skickaKnapp.innerHTML = "<span>Skickar...</span>";
 
-            setTimeout(() => {
+            // Dela upp namn i förnamn och eventuellt efternamn
+            const fulltNamn = namn.value.trim();
+            const namnDelar = fulltNamn.split(/\s+/);
+            const fornamn = namnDelar[0] || fulltNamn;
+            const efternamn = namnDelar.length > 1 ? namnDelar.slice(1).join(" ") : "";
+
+            const falt = [
+                { name: "email", value: epost.value.trim() },
+                { name: "firstname", value: fornamn },
+                { name: "message", value: meddelande.value.trim() }
+            ];
+
+            if (efternamn) {
+                falt.push({ name: "lastname", value: efternamn });
+            }
+
+            const contextData = {
+                pageUri: window.location.href,
+                pageName: document.title
+            };
+
+            const hutk = hamtaCookie("hubspotutk");
+            if (hutk) {
+                contextData.hutk = hutk;
+            }
+
+            const payload = {
+                fields: falt,
+                context: contextData
+            };
+
+            try {
+                const response = await fetch(HUBSPOT_CONFIG.endpoint, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    console.warn("HubSpot API returnerade status:", response.status);
+                }
+            } catch (err) {
+                console.error("Kunde inte skicka till HubSpot API (kan blockeras av adblocker):", err);
+            } finally {
                 skickaKnapp.innerHTML = ursprungligKnappText;
                 skickaKnapp.disabled = false;
                 kontaktForm.reset();
@@ -165,7 +225,7 @@ if (kontaktForm) {
                     kontaktBekraftelse.classList.add("synlig");
                     kontaktBekraftelse.scrollIntoView({ behavior: "smooth", block: "nearest" });
                 }
-            }, 600);
+            }
         }
     });
 
