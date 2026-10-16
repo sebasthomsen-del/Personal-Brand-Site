@@ -196,39 +196,35 @@
                 <form id="kontakt-form" class="kontakt-formular" novalidate>
                     <div class="form-rad">
                         <div class="form-grupp" id="grupp-namn">
-                            <label for="kontakt-namn">Namn <span class="obligatorisk" aria-hidden="true">*</span></label>
-                            <input type="text" id="kontakt-namn" name="namn" required placeholder="Ditt för- och efternamn" autocomplete="name">
+                            <label for="kontakt-namn">Namn <span class="obligatorisk"
+                                    aria-hidden="true">*</span></label>
+                            <input type="text" id="kontakt-namn" name="namn" required
+                                placeholder="Ditt för- och efternamn" autocomplete="name">
                             <span class="form-fel-meddelande" id="namn-fel" aria-live="polite"></span>
                         </div>
                         <div class="form-grupp" id="grupp-epost">
-                            <label for="kontakt-epost">E-postadress <span class="obligatorisk" aria-hidden="true">*</span></label>
-                            <input type="email" id="kontakt-epost" name="epost" required placeholder="namn@foretag.se" autocomplete="email">
+                            <label for="kontakt-epost">E-postadress <span class="obligatorisk"
+                                    aria-hidden="true">*</span></label>
+                            <input type="email" id="kontakt-epost" name="epost" required placeholder="namn@foretag.se"
+                                autocomplete="email">
                             <span class="form-fel-meddelande" id="epost-fel" aria-live="polite"></span>
                         </div>
                     </div>
 
-                    <div class="form-grupp">
-                        <label for="kontakt-amne">Vad gäller ärendet?</label>
-                        <select id="kontakt-amne" name="amne">
-                            <option value="Allmänt">Allmän förfrågan</option>
-                            <option value="LIA / Praktik">LIA / Praktikplats</option>
-                            <option value="SEO & Sök">Synas i sök & SEO</option>
-                            <option value="Sociala medier">Sociala medier & content</option>
-                            <option value="E-postmarknadsföring">E-post & nyhetsbrev</option>
-                            <option value="Övrigt">Övrigt</option>
-                        </select>
-                    </div>
-
                     <div class="form-grupp" id="grupp-meddelande">
-                        <label for="kontakt-meddelande">Meddelande <span class="obligatorisk" aria-hidden="true">*</span></label>
-                        <textarea id="kontakt-meddelande" name="meddelande" rows="4" required placeholder="Berätta kort om vad du vill ha hjälp med..."></textarea>
+                        <label for="kontakt-meddelande">Meddelande <span class="obligatorisk"
+                                aria-hidden="true">*</span></label>
+                        <textarea id="kontakt-meddelande" name="meddelande" rows="4" required
+                            placeholder="Berätta kort om vad du vill ha hjälp med..."></textarea>
                         <span class="form-fel-meddelande" id="meddelande-fel" aria-live="polite"></span>
                     </div>
 
                     <div class="form-footer">
                         <button type="submit" class="kontakt-skicka-knapp" id="kontakt-skicka">
                             <span>Skicka meddelande</span>
-                            <svg class="skicka-pil" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <svg class="skicka-pil" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                                aria-hidden="true">
                                 <line x1="7" y1="17" x2="17" y2="7"></line>
                                 <polyline points="7 7 17 7 17 17"></polyline>
                             </svg>

@@ -739,7 +739,7 @@ section:last-of-type {
     transition: background 0.4s ease;
 }
 
-.kontakt-kort > * {
+.kontakt-kort>* {
     position: relative;
     z-index: 2;
 }
@@ -952,7 +952,7 @@ body.morkt .form-grupp textarea:focus {
 
 /* Bekräftelsemeddelande */
 .kontakt-bekraftelse {
-    display: flex;
+    display: none;
     align-items: flex-start;
     gap: 1rem;
     padding: 1.25rem 1.5rem;
@@ -963,11 +963,20 @@ body.morkt .form-grupp textarea:focus {
     animation: fadaIn 0.35s ease;
 }
 
+.kontakt-bekraftelse[hidden] {
+    display: none !important;
+}
+
+.kontakt-bekraftelse.synlig {
+    display: flex !important;
+}
+
 @keyframes fadaIn {
     from {
         opacity: 0;
         transform: translateY(6px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);

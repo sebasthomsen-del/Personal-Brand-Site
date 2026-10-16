@@ -161,6 +161,8 @@ if (kontaktForm) {
                 kontaktForm.reset();
                 if (kontaktBekraftelse) {
                     kontaktBekraftelse.hidden = false;
+                    kontaktBekraftelse.removeAttribute("hidden");
+                    kontaktBekraftelse.classList.add("synlig");
                     kontaktBekraftelse.scrollIntoView({ behavior: "smooth", block: "nearest" });
                 }
             }, 600);
