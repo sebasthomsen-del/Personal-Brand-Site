@@ -21,20 +21,20 @@ html {
     /* Mjuk, varm pappers/porslinston */
     --background-dark: #eeeae0;
     /* Subtilt mörkare sandton i mitten */
-    --blue: #a3b8e8;
-    /* Dämpad himmelsblå/lavendel */
-    --cyan: #76cbcf;
-    /* Mjukt ljusturkos färgdimma */
-    --orange: #f59b6c;
-    /* Varm aprikos/solnedgång */
-    --coral: #ea8a88;
-    /* Dämpad korall */
-    --purple: #c4a1d8;
+    --blue: #7ba2ec;
+    /* Klarare och mjukt lysande himmelsblå */
+    --cyan: #38c2cb;
+    /* Fylligare ljusturkos färgdimma med mer glow */
+    --orange: #f5894e;
+    /* Varm, strålande aprikos/solnedgång */
+    --coral: #eb6e6c;
+    /* Varm korall med märkbar lyster */
+    --purple: #c19cd8;
     /* Mjuk syren/puderlila */
-    --magenta: #d98aa8;
+    --magenta: #d682a2;
     /* Dämpad rosenmagenta */
-    --blur-grad: 140px;
-    /* Kraftig oskärpa för mjuka fält */
+    --blur-grad: 95px;
+    /* Optimerad oskärpa för tydligare och mer integrerad glow */
     --vignette-farg: rgba(220, 214, 202, 0.45);
     /* Mjuk ljustonad kant */
 
@@ -68,6 +68,14 @@ html {
     --luft: 1rem;
     --radie: 18px;
     --skugga: rgba(22, 50, 79, 0.08);
+
+    /* Header & minimalistiska arkitektoniska linjer (Header_1-stil) */
+    --header-linje: rgba(22, 50, 79, 0.12);
+    --header-bg-scroll: rgba(247, 245, 240, 0.75);
+    --header-pill-border: rgba(22, 50, 79, 0.20);
+    --header-pill-bg: rgba(255, 255, 255, 0.35);
+    --header-pill-hover-bg: rgba(22, 50, 79, 0.06);
+    --header-pill-hover-border: rgba(22, 50, 79, 0.45);
 }
 
 /* ==========================================================================
@@ -99,7 +107,7 @@ html {
     transition: background 0.4s ease, opacity 0.4s ease;
 }
 
-/* FÄLT 1: Mjukt cyan/turkost fält längs nedre och vänstra kanten */
+/* FÄLT 1: Mjukt cyan/turkost fält längs nedre och vänstra kanten med tydligare glow */
 .art-ljus-cyan {
     bottom: -15vh;
     left: -12vw;
@@ -107,13 +115,13 @@ html {
     height: 65vw;
     max-width: 950px;
     max-height: 950px;
-    background: radial-gradient(circle, var(--cyan) 0%, rgba(0, 169, 183, 0.45) 45%, transparent 75%);
+    background: radial-gradient(circle, var(--cyan) 0%, rgba(0, 185, 200, 0.55) 45%, transparent 75%);
     border-radius: 46% 54% 60% 40% / 50% 45% 55% 50%;
     filter: blur(var(--blur-grad));
-    opacity: 0.55;
+    opacity: 0.68;
 }
 
-/* FÄLT 2: Varmt orange ljusfält mot övre och högra kanten */
+/* FÄLT 2: Varmt orange ljusfält mot övre och högra kanten med rikare glöd */
 .art-ljus-orange {
     top: -15vh;
     right: -10vw;
@@ -121,10 +129,10 @@ html {
     height: 60vw;
     max-width: 880px;
     max-height: 880px;
-    background: radial-gradient(circle, var(--orange) 0%, rgba(232, 106, 58, 0.45) 45%, transparent 75%);
+    background: radial-gradient(circle, var(--orange) 0%, rgba(235, 115, 62, 0.55) 45%, transparent 75%);
     border-radius: 55% 45% 40% 60% / 45% 55% 50% 50%;
     filter: blur(var(--blur-grad));
-    opacity: 0.52;
+    opacity: 0.64;
 }
 
 /* FÄLT 3: Korall & dämpad färgblödning mot höger mittsektion */
@@ -135,10 +143,10 @@ html {
     height: 48vw;
     max-width: 720px;
     max-height: 700px;
-    background: radial-gradient(ellipse, var(--coral) 0%, rgba(216, 91, 88, 0.35) 50%, transparent 75%);
+    background: radial-gradient(ellipse, var(--coral) 0%, rgba(225, 95, 92, 0.46) 50%, transparent 75%);
     border-radius: 60% 40% 50% 50% / 40% 60% 50% 50%;
     filter: blur(calc(var(--blur-grad) * 1.15));
-    opacity: 0.42;
+    opacity: 0.52;
 }
 
 /* FÄLT 4: Djupblått område runt mitten – skapar ett lugnt, harmoniskt centrum */
@@ -149,10 +157,10 @@ html {
     height: 52vw;
     max-width: 900px;
     max-height: 800px;
-    background: radial-gradient(circle, var(--blue) 0%, rgba(7, 59, 102, 0.45) 55%, transparent 75%);
+    background: radial-gradient(circle, var(--blue) 0%, rgba(7, 65, 115, 0.52) 55%, transparent 75%);
     border-radius: 50% 50% 45% 55% / 55% 45% 55% 45%;
     filter: blur(calc(var(--blur-grad) * 1.25));
-    opacity: 0.65;
+    opacity: 0.72;
 }
 
 /* FÄLT 5: Mörk lila övergång i övre vänstra området */
@@ -163,10 +171,10 @@ html {
     height: 48vw;
     max-width: 700px;
     max-height: 700px;
-    background: radial-gradient(circle, var(--purple) 0%, rgba(85, 42, 101, 0.35) 45%, transparent 75%);
+    background: radial-gradient(circle, var(--purple) 0%, rgba(95, 48, 112, 0.42) 45%, transparent 75%);
     border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
     filter: blur(var(--blur-grad));
-    opacity: 0.48;
+    opacity: 0.54;
 }
 
 /* FÄLT 6: Subtil dämpad magenta i nedre mitten för analog fotokänsla */
@@ -177,10 +185,28 @@ html {
     height: 42vw;
     max-width: 680px;
     max-height: 620px;
-    background: radial-gradient(circle, var(--magenta) 0%, rgba(130, 38, 89, 0.30) 40%, transparent 75%);
+    background: radial-gradient(circle, var(--magenta) 0%, rgba(138, 42, 95, 0.38) 40%, transparent 75%);
     border-radius: 50% 50% 40% 60% / 60% 40% 50% 50%;
     filter: blur(calc(var(--blur-grad) * 1.2));
-    opacity: 0.35;
+    opacity: 0.42;
+}
+
+/* TEKNISKT KOORDINAT-RUTNÄT: Subtilt futuristiskt punktmönster med parallax */
+.art-tech-grid {
+    position: absolute;
+    inset: -30vh -15vw;
+    width: 130vw;
+    height: 160vh;
+    background-image: radial-gradient(rgba(22, 50, 79, 0.08) 1.2px, transparent 1.2px);
+    background-size: 38px 38px;
+    pointer-events: none;
+    opacity: 0.65;
+    will-change: transform;
+    transition: opacity 0.4s ease;
+}
+
+body.morkt .art-tech-grid {
+    display: none;
 }
 
 /* VIGNETTE: Mjuk analog toning mot kanterna för djup */
@@ -202,177 +228,190 @@ html {
     opacity: 0.85;
 }
 
+
 /* ==========================================================================
-   4 · Grundstil för typografi och länkar
+   4 · Typografi & Rubriker
    ========================================================================== */
 body {
     margin: 0;
-    font-family: var(--typsnitt-brod);
-    font-size: 1.125rem;
-    line-height: 1.65;
-    color: var(--text);
     background-color: var(--background);
+    color: var(--text);
+    font-family: var(--typsnitt-brod);
+    font-size: 1.0625rem;
+    line-height: 1.68;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    transition: color 0.4s ease, background-color 0.4s ease;
+    position: relative;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
     font-family: var(--typsnitt-rubrik);
+    color: var(--primar);
     line-height: 1.2;
     letter-spacing: -0.02em;
-    color: var(--primar);
-    font-weight: 700;
     transition: color 0.4s ease;
 }
 
 h1 {
-    font-size: 2rem;
-    margin: 0;
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin: 0 0 calc(var(--luft) * 1.5) 0;
 }
 
 h2 {
-    font-size: 1.75rem;
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 700;
     margin-top: 0;
-    margin-bottom: var(--luft);
-    letter-spacing: -0.015em;
+    margin-bottom: calc(var(--luft) * 1.25);
 }
 
 h3 {
-    font-size: 1.25rem;
-    letter-spacing: -0.01em;
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-top: 0;
 }
 
 p {
-    max-width: 65ch;
     margin-top: 0;
     margin-bottom: var(--luft);
-    transition: color 0.4s ease;
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.7;
 }
 
-a {
+strong {
+    font-weight: 600;
     color: var(--primar);
-    text-underline-offset: 4px;
-    text-decoration-thickness: 1.5px;
-    transition: color 0.2s ease, text-decoration-color 0.2s ease;
-}
-
-a:hover {
-    color: var(--accent);
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
 }
 
 /* ==========================================================================
-   5 · Sidhuvud och meny: Frostat glas med Pelmatech-inspiration
+   5 · Minimalistisk editorial layout (Fullbredd med andrum)
+   ========================================================================== */
+main {
+    max-width: 74rem;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+    position: relative;
+    z-index: 1;
+}
+
+section {
+    padding-top: calc(var(--luft) * 4);
+    padding-bottom: calc(var(--luft) * 4);
+    border-bottom: 1px solid var(--header-linje);
+    transition: border-color 0.4s ease;
+}
+
+/* ==========================================================================
+   6 · Header: Minimalistisk arkitektonisk bar (Inspirerad av Header_1)
    ========================================================================== */
 .sidhuvud {
     position: sticky;
     top: 0;
     z-index: 100;
     width: 100%;
-    padding: 0.75rem 1.25rem;
-    /* Frostat glas med subtil vertikal linjestruktur som i inspo-bilden */
-    background:
-        repeating-linear-gradient(90deg,
-            transparent,
-            transparent 28px,
-            rgba(255, 255, 255, 0.035) 28px,
-            rgba(255, 255, 255, 0.035) 29px),
-        var(--glas-bakgrund);
-    backdrop-filter: blur(24px) saturate(190%);
-    -webkit-backdrop-filter: blur(24px) saturate(190%);
-    border-bottom: 1px solid var(--glas-kant);
-    box-shadow: 0 8px 32px -8px var(--skugga), var(--glas-sken);
-    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    background: transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* Bakgrundsfrostning som mjukt tonar in när besökaren börjar scrolla */
+.sidhuvud.skrollad {
+    background-color: var(--header-bg-scroll);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.sidhuvud-ram {
+    position: relative;
+    width: 100%;
+    border-top: 1px solid var(--header-linje);
+    border-bottom: 1px solid var(--header-linje);
+    transition: border-color 0.4s ease;
+}
+
+/* Fin, futuristisk laser-progresslinje på headerns underkant i harmonisk cyan och safirblå */
+.scroll-laser-linje {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: linear-gradient(90deg, #1e40af 0%, #0284c7 40%, #00b4d8 75%, #76cbcf 100%);
+    box-shadow: 0 0 12px rgba(2, 132, 199, 0.75), 0 0 4px rgba(118, 203, 207, 0.9);
+    pointer-events: none;
+    z-index: 10;
+    border-radius: 999px;
+    transition: width 0.08s ease-out;
+}
+
+body.morkt .scroll-laser-linje {
+    background: linear-gradient(90deg, #0369a1 0%, #38bdf8 50%, #e0f2fe 100%);
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.95), 0 0 5px rgba(224, 242, 254, 0.85);
 }
 
 .sidhuvud-container {
-    max-width: 76rem;
+    max-width: 94rem;
     margin: 0 auto;
+    padding: 0.95rem clamp(1.25rem, 4vw, 4rem);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 /* Vänsterdel: Logotyp och personligt varumärke */
 .logo-lank {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.65rem;
     text-decoration: none;
     color: var(--primar);
-    font-family: var(--typsnitt-rubrik);
     font-weight: 700;
-    font-size: 1.15rem;
-    letter-spacing: -0.02em;
-    padding: 0.35rem 0;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    font-size: 1.05rem;
+    letter-spacing: -0.015em;
+    transition: opacity 0.2s ease;
 }
 
 .logo-lank:hover {
-    opacity: 0.85;
-    transform: translateY(-1px);
-    text-decoration: none;
+    opacity: 0.8;
 }
 
 .logo-ikon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.5) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--header-pill-bg);
+    border: 1px solid var(--header-pill-border);
     color: var(--primar);
-    box-shadow: 0 2px 8px -1px var(--skugga), inset 0 1px 1px rgba(255, 255, 255, 0.9);
-}
-
-body.morkt .logo-ikon {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.05) 100%);
-    border-color: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    flex-shrink: 0;
 }
 
 .logo-namn {
-    white-space: nowrap;
+    font-family: var(--typsnitt-rubrik);
 }
 
-/* Mittenparti: Navigationsmeny i flytande pillerform med frostat glas */
+/* Mittdel: Minimalistisk navigationsmeny */
 .huvudnav {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.75);
-    border-radius: 9999px;
-    padding: 0.3rem 0.4rem;
-    box-shadow: 0 4px 16px -2px rgba(22, 50, 79, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.9);
-    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-}
-
-body.morkt .huvudnav {
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 6px 20px -2px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.15);
 }
 
 .nav-lista {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .nav-punkt {
@@ -383,35 +422,33 @@ body.morkt .huvudnav {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    padding: 0.42rem 0.95rem;
-    border-radius: 9999px;
-    font-weight: 600;
-    font-size: 0.92rem;
-    text-decoration: none;
+    padding: 0.45rem 1rem;
+    font-family: var(--typsnitt-brod);
+    font-size: 0.9rem;
+    font-weight: 500;
     color: var(--text-dampad);
-    transition: all 0.25s ease;
+    text-decoration: none;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
 }
 
 .nav-lank:hover {
     color: var(--primar);
-    background: rgba(125, 125, 125, 0.09);
-    text-decoration: none;
+    background: var(--header-pill-hover-bg);
+    border-color: var(--header-pill-hover-border);
 }
 
-/* Aktiv flik med inre pill-bakgrund och pulserande grön prick */
 .nav-lank.aktiv {
-    background: rgba(255, 255, 255, 0.85);
     color: var(--primar);
-    font-weight: 700;
-    box-shadow: 0 2px 8px -1px rgba(22, 50, 79, 0.1), inset 0 1px 1px rgba(255, 255, 255, 1);
+    font-weight: 600;
+    background: var(--header-pill-bg);
+    border-color: var(--header-pill-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-body.morkt .nav-lank.aktiv {
-    background: rgba(255, 255, 255, 0.16);
-    color: #ffffff;
-    box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.3);
-}
-
+/* Subtil grön high-tech-prick för aktiv sektion */
 .aktiv-prick {
     width: 6px;
     height: 6px;
@@ -420,10 +457,10 @@ body.morkt .nav-lank.aktiv {
     box-shadow: 0 0 8px #10b981;
     display: inline-block;
     flex-shrink: 0;
-    animation: prickPuls 2s ease-in-out infinite;
+    animation: pulserandePrick 2.4s ease-in-out infinite;
 }
 
-@keyframes prickPuls {
+@keyframes pulserandePrick {
 
     0%,
     100% {
@@ -432,80 +469,73 @@ body.morkt .nav-lank.aktiv {
     }
 
     50% {
-        opacity: 0.55;
+        opacity: 0.45;
         transform: scale(0.85);
     }
 }
 
-/* Dekorativ plus-separator mellan länkar som i inspo-bilden */
-.nav-separator {
-    color: #10b981;
-    font-weight: 600;
-    font-size: 0.85rem;
-    padding: 0 0.15rem;
-    opacity: 0.75;
-    user-select: none;
-}
-
-/* Högerdel: CTA, Tema och Mobilmeny */
+/* Högerdel: Minimalistiska knappar för Kontakt & Tema */
 .sidhuvud-actions {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.75rem;
 }
 
-/* Tydlig CTA för "Kontakt" i frostat glas */
+/* Kontakt-knapp: Framträdande CTA anpassad separat för ljust och mörkt läge */
 .cta-kontakt {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    padding: 0.5rem 1.15rem;
+    gap: 0.5rem;
+    padding: 0.52rem 1.4rem;
     border-radius: 9999px;
-    font-weight: 700;
+    font-family: var(--typsnitt-brod);
+    font-weight: 600;
     font-size: 0.92rem;
     text-decoration: none;
-    color: var(--primar);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.95);
-    box-shadow: 0 4px 14px -2px rgba(22, 50, 79, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.95);
-    transition: all 0.25s ease;
+    color: #ffffff;
+    background: linear-gradient(135deg, #16324f 0%, #1f436b 100%);
+    border: 1.5px solid rgba(22, 50, 79, 0.4);
+    box-shadow: 0 4px 14px -2px rgba(22, 50, 79, 0.28), 0 0 20px rgba(56, 194, 203, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     white-space: nowrap;
 }
 
-body.morkt .cta-kontakt {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.08) 100%);
-    border-color: rgba(255, 255, 255, 0.25);
-    color: #ffffff;
-    box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.35);
-}
-
 .cta-kontakt:hover {
-    transform: translateY(-1px);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.75) 100%);
-    border-color: #ffffff;
-    box-shadow: 0 6px 18px -2px rgba(22, 50, 79, 0.18), inset 0 1px 2px rgba(255, 255, 255, 1);
-    color: var(--primar);
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #c44e23 0%, #da5b2e 100%);
+    border-color: rgba(196, 78, 35, 0.6);
+    color: #ffffff;
+    box-shadow: 0 6px 20px -2px rgba(196, 78, 35, 0.4), 0 0 28px rgba(245, 137, 78, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.5);
     text-decoration: none;
 }
 
-body.morkt .cta-kontakt:hover {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.14) 100%);
-    border-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 6px 20px -2px rgba(0, 0, 0, 0.65), inset 0 1px 2px rgba(255, 255, 255, 0.5);
-    color: #ffffff;
-}
-
 .cta-pil {
-    transition: transform 0.2s ease;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cta-kontakt:hover .cta-pil {
-    transform: translate(2px, -2px);
+    transform: translate(3px, -3px);
 }
 
-/* Squircle-ikonknappar (mörkerläge och meny) som i inspo-bilden */
+body.morkt .cta-kontakt {
+    background: linear-gradient(135deg, rgba(232, 106, 58, 0.25) 0%, rgba(200, 90, 43, 0.12) 100%);
+    border: 1.5px solid rgba(232, 106, 58, 0.85);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 0 22px rgba(232, 106, 58, 0.45), 0 2px 10px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+body.morkt .cta-kontakt:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #e86a3a 0%, #c85a2b 100%);
+    border-color: #ffffff;
+    color: #ffffff;
+    box-shadow: 0 0 32px rgba(232, 106, 58, 0.85), 0 0 10px #ffffff, inset 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+/* Cirkulär outline-knapp för mörkerläge och meny */
 .ikon-knapp {
     width: 38px;
     height: 38px;
@@ -513,174 +543,311 @@ body.morkt .cta-kontakt:hover {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
-    background: var(--glas-bakgrund);
-    backdrop-filter: blur(14px) saturate(160%);
-    -webkit-backdrop-filter: blur(14px) saturate(160%);
-    border: 1px solid var(--glas-kant);
+    border-radius: 9999px;
+    border: 1px solid var(--header-pill-border);
+    background: var(--header-pill-bg);
     color: var(--primar);
-    box-shadow: var(--glas-sken), 0 3px 10px -2px var(--skugga);
     cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     transition: all 0.2s ease;
-    flex-shrink: 0;
 }
 
 .ikon-knapp:hover {
-    background: rgba(125, 125, 125, 0.15);
-    transform: translateY(-1px);
+    background: var(--header-pill-hover-bg);
+    border-color: var(--header-pill-hover-border);
+    transform: scale(1.05);
 }
 
-/* Tema-växlare: Sol och måne */
-.tema-knapp .ikon-sol {
-    display: none;
-}
-
+/* Temaknapp: Ikonväxling mellan sol och måne */
 .tema-knapp .ikon-mane {
-    display: block;
+    display: none;
 }
 
 body.morkt .tema-knapp .ikon-sol {
-    display: block;
-    color: #fbbf24;
+    display: none;
 }
 
 body.morkt .tema-knapp .ikon-mane {
-    display: none;
+    display: block;
 }
 
-/* Hamburgermeny för mindre skärmar */
-.meny-knapp {
+/* Hamburgermeny för mobil */
+.mobilmeny-knapp {
     display: none;
     flex-direction: column;
+    justify-content: center;
     gap: 4px;
 }
 
-.meny-knapp .streck {
+.mobilmeny-knapp .streck {
     width: 16px;
-    height: 2px;
+    height: 1.5px;
     background: currentColor;
-    border-radius: 2px;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.meny-knapp[aria-expanded="true"] .streck:first-child {
-    transform: translateY(3px) rotate(45deg);
-}
-
-.meny-knapp[aria-expanded="true"] .streck:last-child {
-    transform: translateY(-3px) rotate(-45deg);
-}
-
-/* Mobilanpassning för sidhuvudet */
-@media (max-width: 48rem) {
-    .sidhuvud {
-        padding: 0.65rem 1rem;
-    }
-
-    .meny-knapp {
-        display: inline-flex;
-    }
-
+/* Responsiv header för mindre skärmar */
+@media (max-width: 820px) {
     .huvudnav {
-        position: absolute;
-        top: calc(100% + 0.5rem);
-        left: 1rem;
-        right: 1rem;
-        border-radius: 18px;
-        padding: 0.75rem;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: var(--background);
+        border-bottom: 1px solid var(--header-linje);
+        padding: 1.5rem;
         display: none;
-        flex-direction: column;
-        align-items: stretch;
-        background: var(--glas-bakgrund);
-        backdrop-filter: blur(28px);
-        -webkit-backdrop-filter: blur(28px);
-        box-shadow: 0 16px 36px -4px var(--skugga);
+        box-shadow: 0 16px 32px var(--skugga);
     }
 
     .huvudnav.oppen {
-        display: flex;
+        display: block;
     }
 
     .nav-lista {
         flex-direction: column;
         align-items: stretch;
-        width: 100%;
-        gap: 0.35rem;
-    }
-
-    .nav-separator {
-        display: none;
+        gap: 0.5rem;
     }
 
     .nav-lank {
-        padding: 0.65rem 1rem;
-        border-radius: 12px;
+        padding: 0.75rem 1rem;
         width: 100%;
     }
 
-    .cta-kontakt {
-        padding: 0.45rem 0.85rem;
-        font-size: 0.85rem;
+    .mobilmeny-knapp {
+        display: inline-flex;
     }
 
-    .logo-namn {
-        font-size: 1rem;
+    .cta-kontakt {
+        padding: 0.45rem 1rem;
+        font-size: 0.85rem;
     }
 }
 
 /* ==========================================================================
-   6 · Innehållsytan, intro & knappar
+   7 · Sektioner: Intro, Tjänster & Projekt
    ========================================================================== */
-main {
-    max-width: 70rem;
-    margin: 0 auto;
-    padding: 0 calc(var(--luft) * 1.5);
-    position: relative;
-    z-index: 2;
-}
 
-section {
-    padding: calc(var(--luft) * 3) 0;
-    border-bottom: 1px solid var(--glas-kant);
-    transition: border-color 0.4s ease;
-}
-
-section:last-of-type {
-    border-bottom: none;
-}
-
-/* Introduktionssektionen: Luftig och skarp */
+/* Introduktionssektionen: Luftig, bred och skarp */
 .intro {
-    padding-top: calc(var(--luft) * 4);
-    padding-bottom: calc(var(--luft) * 4);
+    padding-top: calc(var(--luft) * 5);
+    padding-bottom: calc(var(--luft) * 5);
+}
+
+/* High-tech tag och badge i intro med integrerad cyan glow */
+.intro-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.38rem 1rem;
+    border-radius: 9999px;
+    background: var(--header-pill-bg);
+    border: 1px solid var(--header-pill-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    color: var(--primar);
+    margin-bottom: 1.25rem;
+    box-shadow: 0 2px 10px rgba(22, 50, 79, 0.05), 0 0 16px rgba(56, 194, 203, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.7);
+}
+
+.puls-punkt {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #0284c7;
+    box-shadow: 0 0 8px #0284c7, 0 0 14px rgba(2, 132, 199, 0.6);
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.puls-punkt::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1.5px solid #0284c7;
+    animation: pulsRing 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+@keyframes pulsRing {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.9;
+    }
+
+    70% {
+        transform: scale(2.2);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(2.2);
+        opacity: 0;
+    }
+}
+
+body.morkt .intro-tag {
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+body.morkt .puls-punkt {
+    background: #38bdf8;
+    box-shadow: 0 0 10px #38bdf8, 0 0 18px rgba(56, 189, 248, 0.75);
+}
+
+body.morkt .puls-punkt::after {
+    border-color: #38bdf8;
 }
 
 .intro h2 {
-    font-size: 2.2rem;
+    font-size: clamp(2.3rem, 4.4vw, 3.8rem);
     line-height: 1.15;
-    max-width: 24ch;
+    max-width: 26ch;
+    letter-spacing: -0.025em;
 }
 
 .intro p {
-    font-size: 1.2rem;
+    font-size: clamp(1.15rem, 1.8vw, 1.35rem);
     color: var(--text-dampad);
-    max-width: 48ch;
-    margin-bottom: calc(var(--luft) * 1.75);
+    max-width: 50ch;
+    margin-bottom: calc(var(--luft) * 2);
+    line-height: 1.6;
 }
 
-/* Handlingsknapp: Modern pill-knapp med mjuk lyft-effekt */
+.intro-scroll-ledtrad {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: calc(var(--luft) * 3);
+    color: var(--text-dampad);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.intro-scroll-ledtrad.dold {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+}
+
+.scroll-linje {
+    display: inline-block;
+    width: 50px;
+    height: 1px;
+    background: var(--header-linje);
+}
+
+.scroll-pil-cirkel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--header-pill-border);
+    background: var(--header-pill-bg);
+    color: var(--primar);
+    animation: pilVibration 2.4s ease-in-out infinite;
+}
+
+@keyframes pilVibration {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(4px);
+    }
+}
+
+/* Sektions-metadata & taggar med high-tech-känsla */
+.sektion-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--typsnitt-rubrik);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.65rem;
+}
+
+.tag-nummer {
+    opacity: 0.9;
+}
+
+.tag-sep {
+    opacity: 0.45;
+}
+
+.tag-linje {
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.45;
+    margin-left: 0.25rem;
+}
+
+.sektion-huvud {
+    grid-area: rubrik;
+    margin-bottom: var(--luft);
+}
+
+.sektion-huvud h2 {
+    margin-bottom: 0;
+}
+
+/* Om mig: Bildram med mjuk parallaxkameraglid */
+.om-bild-ram {
+    grid-area: bild;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radie);
+    border: 1px solid var(--glas-kant);
+    box-shadow: 0 16px 36px -8px var(--skugga);
+    aspect-ratio: 240 / 380;
+    max-width: 320px;
+    width: 100%;
+    margin-bottom: calc(var(--luft) * 1.5);
+}
+
+.om-bild-ram img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-bottom: 0;
+    will-change: transform;
+    transition: transform 0.15s ease-out;
+}
+
+/* Handlingsknapp: Modern pill-knapp med mjuk lyft-effekt och integrerad glow */
 .knapp {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.85rem 1.6rem;
+    padding: 0.85rem 1.65rem;
     background: var(--accent);
     color: var(--knapptext);
     font-weight: 700;
     font-size: 1rem;
     text-decoration: none;
     border-radius: 9999px;
-    box-shadow: 0 4px 14px 0 rgba(196, 78, 35, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 14px 0 rgba(196, 78, 35, 0.32), 0 0 20px rgba(245, 137, 78, 0.30);
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
@@ -688,18 +855,9 @@ section:last-of-type {
     background: var(--accent-hov);
     color: var(--knapptext);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px 0 rgba(196, 78, 35, 0.5);
+    box-shadow: 0 6px 20px 0 rgba(196, 78, 35, 0.45), 0 0 28px rgba(245, 137, 78, 0.55);
 }
 
-/* Om mig: Bild och text */
-#om img {
-    border-radius: var(--radie);
-    border: 1px solid var(--glas-kant);
-    box-shadow: 0 16px 36px -8px var(--skugga);
-    object-fit: cover;
-    margin-bottom: calc(var(--luft) * 1.5);
-    transition: border-color 0.4s ease, box-shadow 0.4s ease;
-}
 
 /* ==========================================================================
    Kontaktformulär i minimalistiskt frostat glas
@@ -720,7 +878,7 @@ section:last-of-type {
     border: 1px solid var(--glas-kant);
     border-radius: calc(var(--radie) + 6px);
     padding: calc(var(--luft) * 2.5);
-    box-shadow: var(--glas-sken), 0 20px 48px -12px var(--skugga);
+    box-shadow: var(--glas-sken), 0 20px 48px -12px var(--skugga), 0 0 32px -4px rgba(56, 194, 203, 0.20), 0 0 16px -2px rgba(245, 137, 78, 0.14);
     transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
@@ -753,7 +911,7 @@ section:last-of-type {
     align-items: center;
     gap: 0.5rem;
     padding: 0.35rem 0.85rem;
-    border-radius: 999px;
+    border-radius: 9999px;
     background: rgba(255, 255, 255, 0.55);
     border: 1px solid var(--glas-kant);
     font-size: 0.75rem;
@@ -795,55 +953,53 @@ body.morkt .kontakt-pill {
     gap: 1.25rem;
 }
 
-@media (min-width: 44rem) {
-    .form-rad {
-        grid-template-columns: 1fr 1fr;
+.form-rad.tva-kolumner {
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 680px) {
+    .form-rad.tva-kolumner {
+        grid-template-columns: 1fr;
     }
 }
 
 .form-grupp {
     display: flex;
     flex-direction: column;
-    gap: 0.45rem;
+    gap: 0.4rem;
 }
 
 .form-grupp label {
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     font-weight: 600;
     color: var(--primar);
     letter-spacing: -0.01em;
-    transition: color 0.4s ease;
 }
 
-.form-grupp label .obligatorisk {
+.obligatorisk {
     color: var(--accent);
 }
 
-/* Frostat glas inputs, select & textarea */
+/* Inputs och Textarea med editorial glasdesign */
 .form-grupp input,
-.form-grupp select,
 .form-grupp textarea {
     width: 100%;
-    box-sizing: border-box;
+    padding: 0.85rem 1.1rem;
+    border-radius: calc(var(--radie) - 8px);
+    border: 1px solid var(--glas-kant);
+    background: rgba(255, 255, 255, 0.65);
+    color: var(--text);
     font-family: var(--typsnitt-brod);
     font-size: 1rem;
-    color: var(--text);
-    background: rgba(255, 255, 255, 0.60);
-    border: 1px solid var(--glas-kant);
-    border-radius: 12px;
-    padding: 0.85rem 1.05rem;
-    box-shadow: inset 0 1px 2px rgba(22, 50, 79, 0.03);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.4s ease, color 0.4s ease;
+    line-height: 1.5;
+    box-shadow: inset 0 1px 2px rgba(22, 50, 79, 0.04);
+    transition: all 0.2s ease;
 }
 
 body.morkt .form-grupp input,
-body.morkt .form-grupp select,
 body.morkt .form-grupp textarea {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.16);
-    color: var(--text);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.14);
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
 }
 
@@ -853,128 +1009,104 @@ body.morkt .form-grupp textarea {
     opacity: 0.65;
 }
 
-.form-grupp select {
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23525a66' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    padding-right: 2.5rem;
-}
-
-body.morkt .form-grupp select {
-    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-}
-
-/* Focus-tillstånd */
 .form-grupp input:focus,
-.form-grupp select:focus,
 .form-grupp textarea:focus {
     outline: none;
+    background: rgba(255, 255, 255, 0.95);
     border-color: var(--accent);
-    background: rgba(255, 255, 255, 0.90);
-    box-shadow: 0 0 0 3px rgba(196, 78, 35, 0.20), var(--glas-sken);
+    box-shadow: 0 0 0 3px rgba(196, 78, 35, 0.18), inset 0 1px 2px rgba(22, 50, 79, 0.05);
 }
 
 body.morkt .form-grupp input:focus,
-body.morkt .form-grupp select:focus,
 body.morkt .form-grupp textarea:focus {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.10);
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(232, 106, 58, 0.30);
+    box-shadow: 0 0 0 3px rgba(232, 106, 58, 0.25);
 }
 
 .form-grupp textarea {
     resize: vertical;
-    min-height: 110px;
+    min-height: 120px;
 }
 
-.form-fel-meddelande {
+/* Felmeddelanden & validering */
+.felmeddelande {
     font-size: 0.8rem;
-    color: #e53e3e;
-    min-height: 1rem;
-    display: none;
+    color: #dc2626;
+    min-height: 1.1rem;
+    font-weight: 500;
 }
 
-.form-grupp.har-fel .form-fel-meddelande {
-    display: block;
+body.morkt .felmeddelande {
+    color: #f87171;
 }
 
 .form-grupp.har-fel input,
 .form-grupp.har-fel textarea {
-    border-color: #e53e3e;
+    border-color: #dc2626;
+    background: rgba(220, 38, 38, 0.04);
 }
 
-/* Skicka-knapp i frostat glas & accent */
-.form-footer {
+body.morkt .form-grupp.har-fel input,
+body.morkt .form-grupp.har-fel textarea {
+    border-color: #f87171;
+    background: rgba(248, 113, 113, 0.08);
+}
+
+.form-atgarder {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    padding-top: 0.5rem;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
 }
 
-.kontakt-skicka-knapp {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.65rem;
-    padding: 0.9rem 1.85rem;
-    background: var(--accent);
-    color: #ffffff;
-    font-family: var(--typsnitt-rubrik);
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    border-radius: 14px;
+.knapp-skicka {
     cursor: pointer;
-    box-shadow: 0 8px 22px -4px rgba(196, 78, 35, 0.40);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.25s ease;
+    border: none;
+    gap: 0.55rem;
+    padding: 0.95rem 1.85rem;
+    font-size: 1.02rem;
 }
 
-.kontakt-skicka-knapp:hover {
-    background: var(--accent-hov);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px -6px rgba(196, 78, 35, 0.55);
+.skicka-pil {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.kontakt-skicka-knapp:active {
-    transform: translateY(0);
+.knapp-skicka:hover .skicka-pil {
+    transform: translate(3px, -3px);
 }
 
-.kontakt-skicka-knapp .skicka-pil {
-    transition: transform 0.2s ease;
+.knapp-skicka:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none !important;
 }
 
-.kontakt-skicka-knapp:hover .skicka-pil {
-    transform: translate(2px, -2px);
+.form-sekretess {
+    font-size: 0.85rem;
+    color: var(--text-dampad);
+    margin: 0;
+    max-width: 38ch;
 }
 
 /* Bekräftelsemeddelande */
-.kontakt-bekraftelse {
-    display: none;
+.form-tack {
+    display: flex;
     align-items: flex-start;
-    gap: 1rem;
-    padding: 1.25rem 1.5rem;
-    border-radius: 14px;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    border-radius: calc(var(--radie) - 4px);
     background: rgba(16, 185, 129, 0.12);
     border: 1px solid rgba(16, 185, 129, 0.35);
     margin-top: 1rem;
-    animation: fadaIn 0.35s ease;
+    animation: tackEntré 0.4s ease-out forwards;
 }
 
-.kontakt-bekraftelse[hidden] {
-    display: none !important;
-}
-
-.kontakt-bekraftelse.synlig {
-    display: flex !important;
-}
-
-@keyframes fadaIn {
+@keyframes tackEntré {
     from {
         opacity: 0;
-        transform: translateY(6px);
+        transform: translateY(8px);
     }
 
     to {
@@ -983,83 +1115,67 @@ body.morkt .form-grupp textarea:focus {
     }
 }
 
-.bekraftelse-ikon {
-    display: flex;
+.tack-ikon {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2rem;
-    height: 2rem;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: #10b981;
     color: #ffffff;
-    font-weight: bold;
     flex-shrink: 0;
-    font-size: 1.1rem;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
 }
 
-.bekraftelse-text h4 {
+.form-tack h4 {
     margin: 0 0 0.25rem 0;
+    font-size: 1.15rem;
     color: var(--primar);
-    font-family: var(--typsnitt-rubrik);
-    font-size: 1.1rem;
 }
 
-.bekraftelse-text p {
+.form-tack p {
     margin: 0;
     font-size: 0.95rem;
     color: var(--text);
 }
 
-/* Direktkontakt längst ner i kortet */
-.kontakt-direkt {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    padding-top: calc(var(--luft) * 1.75);
-    margin-top: calc(var(--luft) * 1.5);
-    border-top: 1px solid var(--glas-kant);
-    font-size: 0.95rem;
-    color: var(--text-dampad);
-    transition: border-color 0.4s ease;
-}
-
-.direkt-lank {
-    color: var(--primar);
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.2s ease, opacity 0.2s ease;
-}
-
-.direkt-lank:hover {
-    color: var(--accent);
-    text-decoration: underline;
-}
-
-.direkt-sep {
-    opacity: 0.4;
-}
-
-@media (max-width: 44rem) {
-    .kontakt-kort {
-        padding: 1.5rem 1.25rem;
-        border-radius: 20px;
-    }
-}
-
-/* ==========================================================================
-   7 · Kort i ett rutnät: Glansiga glaspartier som bryter bakgrundsljuset
-   ========================================================================== */
-.rutnat {
+/* Rutnät för tjänster */
+.tjanster-rutnat {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: calc(var(--luft) * 1.5);
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-/* Boxarna som glansiga glaspartier */
+.kort-huvud {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.kort-nummer {
+    font-family: var(--typsnitt-rubrik);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.9;
+}
+
+/* Rutnät för projekt / kompetenser */
+.projekt-rutnat {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: calc(var(--luft) * 1.5);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Boxarna som glansiga glaspartier med integrerad subtil glow */
 .kort {
     position: relative;
     overflow: hidden;
@@ -1069,7 +1185,7 @@ body.morkt .form-grupp textarea:focus {
     padding: calc(var(--luft) * 1.75);
     border: 1px solid var(--glas-kant);
     border-radius: var(--radie);
-    box-shadow: var(--glas-sken), 0 14px 34px -8px var(--skugga);
+    box-shadow: var(--glas-sken), 0 14px 34px -8px var(--skugga), 0 0 24px -4px rgba(56, 194, 203, 0.16);
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.4s ease;
 }
 
@@ -1094,14 +1210,15 @@ body.morkt .form-grupp textarea:focus {
     z-index: 2;
 }
 
-/* Mjuk lyft- och glanseffekt vid hovring */
+/* Mjuk lyft- och glanseffekt vid hovring med mer framträdande glow */
 .kort:hover {
     transform: translateY(-5px);
     border-color: var(--glas-hover-border);
     box-shadow:
         var(--glas-hover-sken),
         0 20px 40px -10px var(--skugga),
-        0 0 25px 0 rgba(232, 106, 58, 0.2);
+        0 0 32px 0 rgba(56, 194, 203, 0.30),
+        0 0 18px 0 rgba(245, 137, 78, 0.20);
 }
 
 .kort h3 {
@@ -1136,153 +1253,89 @@ body.morkt .form-grupp textarea:focus {
     margin-bottom: var(--luft);
     background: radial-gradient(circle at 50% 50%, rgba(196, 78, 35, 0.08) 0%, rgba(255, 255, 255, 0.03) 70%);
     border: 1px solid var(--glas-kant);
-    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.25), 0 4px 14px -2px var(--skugga);
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 4px 14px -3px var(--skugga);
+    color: var(--accent);
+    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease, color 0.3s ease;
 }
 
 body.morkt .projekt-symbol-box {
+    color: var(--accent);
+    border-color: rgba(255, 255, 255, 0.14);
     background: radial-gradient(circle at 50% 50%, rgba(232, 106, 58, 0.14) 0%, rgba(255, 255, 255, 0.02) 75%);
-    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 4px 16px -3px rgba(0, 0, 0, 0.4);
 }
 
 .kort:hover .projekt-symbol-box {
-    border-color: rgba(196, 78, 35, 0.4);
+    transform: scale(1.02);
+    border-color: var(--accent);
     background: radial-gradient(circle at 50% 50%, rgba(196, 78, 35, 0.16) 0%, rgba(255, 255, 255, 0.06) 75%);
 }
 
 body.morkt .kort:hover .projekt-symbol-box {
-    border-color: rgba(232, 106, 58, 0.5);
+    border-color: rgba(232, 106, 58, 0.7);
     background: radial-gradient(circle at 50% 50%, rgba(232, 106, 58, 0.24) 0%, rgba(255, 255, 255, 0.04) 75%);
 }
 
-.projekt-symbol-ikon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 62px;
-    height: 62px;
-    border-radius: 18px;
-    background: var(--glas-bakgrund);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.08), 0 0 18px 0 rgba(196, 78, 35, 0.22);
-    color: var(--accent);
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, color 0.3s ease;
+.projekt-symbol-svg {
+    filter: drop-shadow(0 2px 8px rgba(196, 78, 35, 0.25));
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
 }
 
-body.morkt .projekt-symbol-ikon {
-    border-color: rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4), 0 0 22px 0 rgba(232, 106, 58, 0.35);
+body.morkt .projekt-symbol-svg {
+    filter: drop-shadow(0 2px 10px rgba(232, 106, 58, 0.45));
 }
 
-.kort:hover .projekt-symbol-ikon {
-    transform: scale(1.12);
-    box-shadow: 0 12px 28px -4px rgba(196, 78, 35, 0.4), 0 0 26px 2px rgba(196, 78, 35, 0.45);
+.kort:hover .projekt-symbol-svg {
+    transform: scale(1.08) translateY(-2px);
+    filter: drop-shadow(0 4px 14px rgba(196, 78, 35, 0.45));
 }
 
-body.morkt .kort:hover .projekt-symbol-ikon {
-    box-shadow: 0 12px 28px -4px rgba(232, 106, 58, 0.5), 0 0 30px 2px rgba(232, 106, 58, 0.6);
-}
-
-.projekt-symbol-ikon svg {
-    width: 30px;
-    height: 30px;
-    display: block;
+body.morkt .kort:hover .projekt-symbol-svg {
+    filter: drop-shadow(0 4px 18px rgba(232, 106, 58, 0.75));
 }
 
 /* ==========================================================================
-   8 · Större skärmar (Desktop & surfplattor)
+   8 · Sidfot: Diskret, centrerad och luftig
    ========================================================================== */
-button {
-    font-family: var(--typsnitt-brod);
-    font-size: 0.95rem;
-    font-weight: 600;
-    padding: 0.55rem 1.15rem;
-    color: var(--primar);
-    background: var(--glas-bakgrund);
-    backdrop-filter: blur(14px) saturate(160%);
-    -webkit-backdrop-filter: blur(14px) saturate(160%);
-    border: 1px solid var(--glas-kant);
-    border-radius: 9999px;
-    box-shadow: var(--glas-sken), 0 4px 12px -2px var(--skugga);
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.15s ease, border-color 0.2s ease, color 0.4s ease;
-}
-
-button:hover {
-    background: rgba(125, 125, 125, 0.15);
-    transform: translateY(-1px);
-}
-
-/* Tydlig fokusram för god tillgänglighet vid tangentbordsnavigering */
-a:focus-visible,
-button:focus-visible {
-    outline: 3px solid var(--accent);
-    outline-offset: 3px;
-}
-
-footer {
-    padding: calc(var(--luft) * 3) calc(var(--luft) * 1.5);
-    text-align: center;
-    background: var(--glas-bakgrund);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-top: 1px solid var(--glas-kant);
-    color: var(--text-dampad);
-    font-size: 0.95rem;
-    position: relative;
-    z-index: 2;
-    transition: background 0.4s ease, border-color 0.4s ease;
-}
-
-footer p {
+.sidfot {
+    max-width: 74rem;
     margin: 0 auto;
+    padding: calc(var(--luft) * 4) clamp(1.5rem, 5vw, 4rem) calc(var(--luft) * 5);
+    text-align: center;
+    border-top: 1px solid var(--header-linje);
+    transition: border-color 0.4s ease;
 }
 
-@media (min-width: 48rem) {
-    h1 {
-        font-size: 2.3rem;
-    }
+.sidfot p {
+    font-size: 0.95rem;
+    color: var(--text-dampad);
+    margin-bottom: 0.35rem;
+}
 
-    h2 {
-        font-size: 2.1rem;
-    }
+.sidfot-sekundar {
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
 
-    .intro h2 {
-        font-size: 2.75rem;
-    }
-
-    /* Rutnät med fler kolumner på större skärmar */
-    .rutnat {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: calc(var(--luft) * 2);
-    }
-
-    /* Om mig: Tvåkolumnslayout på desktop */
+/* ==========================================================================
+   Om mig: Grid på bredare skärmar
+   ========================================================================== */
+@media (min-width: 768px) {
     #om {
         display: grid;
-        grid-template-columns: 280px 1fr;
+        grid-template-columns: 240px 1fr;
+        grid-template-rows: auto auto auto;
         grid-template-areas:
-            "rubrik rubrik"
+            "bild rubrik"
             "bild text1"
             "bild text2";
         column-gap: calc(var(--luft) * 3);
-        row-gap: 0.75rem;
         align-items: start;
     }
 
-    #om h2 {
-        grid-area: rubrik;
-    }
-
-    #om img {
+    .om-bild-ram {
         grid-area: bild;
         margin-bottom: 0;
-        width: 100%;
-        max-width: 280px;
     }
 
     #om p:nth-of-type(1) {
@@ -1299,24 +1352,25 @@ footer p {
    Inspiration: Mörkt djup, analog färgblödning, mjukt ljusläckage & filmkorn
    ========================================================================== */
 body.morkt {
-    /* ✦ BAKGRUNDENS FÄRGER (Mörkt läge: mörk bas, rika diffusa färgfält) ✦ */
-    --background: #050812;
-    /* Mörkaste basen: nästan svart midnattsblå */
-    --background-dark: #080B16;
-    /* Djup marinblå ton i mitten */
-    --blue: #073B66;
-    /* Djupblå lugnande kärna i mitten */
-    --cyan: #00A9B7;
-    /* Diffust cyan/turkost ljusfält längs kanten */
-    --orange: #E86A3A;
-    /* Varmt orange ljusläckage i övre hörnet */
-    --coral: #D85B58;
-    /* Dämpad korall & analog färgblödning */
-    --purple: #552A65;
-    /* Mörk lila övergångston */
-    --magenta: #822659;
-    /* Subtil dämpad magenta */
-    --vignette-farg: rgba(5, 8, 18, 0.75);
+    /* ✦ BAKGRUNDENS FÄRGER (Mörkt läge: mörkare obsidian/kolbas helt utan lila undertoner) ✦ */
+    --background: #06090e;
+    /* Mörkare och renare obsidianbas */
+    --background-dark: #030508;
+    /* Djupaste kolsvarta bas i mitten */
+    --blue: #08223c;
+    /* Djup, lugnande marinblå ton i mitten */
+    --cyan: #0284c7;
+    /* Skarp och elegant turkos/cyan ton längs kanten */
+    --orange: #c85a2b;
+    /* Subtilt och dämpat varmt ljusläckage i övre hörnet */
+    --coral: #963d2e;
+    /* Dämpad mörk terrakotta */
+    --purple: #0b1520;
+    /* Ersatt lila med diskret djup kol/skiffer utan lila undertoner */
+    --magenta: #0c1822;
+    /* Ersatt magenta med mörk neutral kol/skiffer */
+    --vignette-farg: rgba(3, 5, 8, 0.88);
+    /* Mörkare vinjett för renare och djupare inramning */
 
     /* Text- och elementfärger (optimerade för perfekt kontrast > 14:1) */
     --text: #f0f2f5;
@@ -1341,4 +1395,80 @@ body.morkt {
     --glas-hover-sken: inset 0 1px 2px 0 rgba(255, 255, 255, 0.6);
 
     --skugga: rgba(0, 0, 0, 0.55);
+
+    /* Header & minimalistiska arkitektoniska linjer (Header_1-stil) */
+    --header-linje: rgba(255, 255, 255, 0.15);
+    --header-bg-scroll: rgba(6, 9, 14, 0.75);
+    --header-pill-border: rgba(255, 255, 255, 0.26);
+    --header-pill-bg: rgba(255, 255, 255, 0.04);
+    --header-pill-hover-bg: rgba(255, 255, 255, 0.12);
+    --header-pill-hover-border: rgba(255, 255, 255, 0.60);
+}
+
+body.morkt .art-ljus-lila {
+    opacity: 0.18;
+}
+
+body.morkt .art-ljus-magenta {
+    opacity: 0.15;
+}
+
+/* ==========================================================================
+   10 · Scroll-aktiverade entréer och futuristisk dynamik
+   ========================================================================== */
+.avsloja {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.avsloja.synlig {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggerade listor / rutnät med mjuk fördröjning per kort */
+.avsloja-grupp>.avsloja-item {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.25s ease,
+        background 0.4s ease,
+        box-shadow 0.25s ease;
+    transition-delay: calc(var(--i, 0) * 110ms);
+    will-change: opacity, transform;
+}
+
+.avsloja-grupp.synlig>.avsloja-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Tillgänglighet: Stäng av rörelse för besökare som föredrar minskad rörelse */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .art-ljus,
+    .art-tech-grid,
+    #om-bild {
+        transform: none !important;
+    }
+
+    .avsloja,
+    .avsloja-grupp>.avsloja-item {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
 }
