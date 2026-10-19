@@ -90,7 +90,16 @@ function uppdateraAktivLank() {
 }
 
 // ✦ Subtil futuristisk scroll-motor (Parallax, Entréer & Precision) ✦
-const arMinskadRorelse = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let arMinskadRorelse = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+try {
+    window.matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change", (e) => {
+        arMinskadRorelse = e.matches;
+        const lager = document.querySelector("#art-bakgrund-lager");
+        if (arMinskadRorelse && lager) {
+            lager.style.transform = "none";
+        }
+    });
+} catch (_) {}
 
 // 1. Mjuka entréer via IntersectionObserver
 function initScrollAvsloja() {
@@ -119,6 +128,7 @@ function initScrollAvsloja() {
 const sidhuvudElement = document.querySelector(".sidhuvud");
 const scrollLaser = document.querySelector("#scroll-laser");
 const scrollLedtrad = document.querySelector("#scroll-ledtrad");
+const artBakgrundLager = document.querySelector("#art-bakgrund-lager");
 const artCyan = document.querySelector(".art-ljus-cyan");
 const artOrange = document.querySelector(".art-ljus-orange");
 const artKorall = document.querySelector(".art-ljus-korall");
@@ -159,15 +169,23 @@ function onScrollFrame() {
         }
     }
 
-    // Parallax på bakgrundens ljusfält (endast om användaren inte valt minskad rörelse)
+    // Parallax på bakgrunden (endast om användaren inte valt minskad rörelse)
     if (!arMinskadRorelse) {
-        if (artCyan) artCyan.style.transform = `translate3d(${scrollY * 0.04}px, ${scrollY * -0.07}px, 0)`;
-        if (artOrange) artOrange.style.transform = `translate3d(${scrollY * -0.05}px, ${scrollY * 0.06}px, 0)`;
-        if (artKorall) artKorall.style.transform = `translate3d(${scrollY * 0.03}px, ${scrollY * -0.04}px, 0)`;
-        if (artBla) artBla.style.transform = `translate3d(0, ${scrollY * -0.03}px, 0) scale(${1 + scrollFraction * 0.1})`;
-        if (artLila) artLila.style.transform = `translate3d(${scrollY * -0.03}px, ${scrollY * -0.05}px, 0)`;
-        if (artMagenta) artMagenta.style.transform = `translate3d(${scrollY * 0.04}px, ${scrollY * 0.03}px, 0)`;
-        if (artGrid) artGrid.style.transform = `translate3d(0, ${scrollY * -0.08}px, 0)`;
+        // Mjuk, lågmäld parallax: bakgrunden glider långsammare än innehållet (diskret djup utan glipor)
+        if (artBakgrundLager) {
+            const maxTravel = Math.min(window.innerHeight * 0.22, 220);
+            const bgOffset = scrollFraction * -maxTravel;
+            artBakgrundLager.style.transform = `translate3d(0, ${bgOffset.toFixed(2)}px, 0)`;
+        }
+
+        // Subtila organiska mikro-förskjutningar mellan ljusfälten för ytterligare djup
+        if (artCyan) artCyan.style.transform = `translate3d(${scrollY * 0.02}px, ${scrollY * -0.03}px, 0)`;
+        if (artOrange) artOrange.style.transform = `translate3d(${scrollY * -0.025}px, ${scrollY * 0.02}px, 0)`;
+        if (artKorall) artKorall.style.transform = `translate3d(${scrollY * 0.015}px, ${scrollY * -0.02}px, 0)`;
+        if (artBla) artBla.style.transform = `translate3d(0, ${scrollY * -0.015}px, 0) scale(${1 + scrollFraction * 0.05})`;
+        if (artLila) artLila.style.transform = `translate3d(${scrollY * -0.015}px, ${scrollY * -0.025}px, 0)`;
+        if (artMagenta) artMagenta.style.transform = `translate3d(${scrollY * 0.02}px, ${scrollY * 0.015}px, 0)`;
+        if (artGrid) artGrid.style.transform = `translate3d(0, ${scrollY * -0.04}px, 0)`;
 
         // Subtil kameraglid på profilbilden i "Om mig"
         if (omBild && omSektion) {
@@ -176,6 +194,10 @@ function onScrollFrame() {
                 const diff = (window.innerHeight / 2) - (omRect.top + omRect.height / 2);
                 omBild.style.transform = `translate3d(0, ${diff * 0.05}px, 0) scale(1.03)`;
             }
+        }
+    } else {
+        if (artBakgrundLager) {
+            artBakgrundLager.style.transform = "none";
         }
     }
 
