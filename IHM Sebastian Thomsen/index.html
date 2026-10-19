@@ -21,7 +21,7 @@
                     new Date().getTime(), event: 'gtm.js'
             }); var f = d.getElementsByTagName(s)[0],
                 j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-PD2MC9BB');</script>
     <!-- End Google Tag Manager -->
 </head>
@@ -31,15 +31,34 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PD2MC9BB" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <!-- ✦ Premium experimentell gradientbakgrund med subtilt rörlig parallax ✦ -->
+    <!-- ✦ Utökad gradientbakgrund med mjuk vertikal parallax & analogt filmkorn ✦ -->
     <div class="art-bakgrund" aria-hidden="true">
-        <div class="art-ljus art-ljus-cyan"></div>
-        <div class="art-ljus art-ljus-orange"></div>
-        <div class="art-ljus art-ljus-korall"></div>
-        <div class="art-ljus art-ljus-bla"></div>
-        <div class="art-ljus art-ljus-lila"></div>
-        <div class="art-ljus art-ljus-magenta"></div>
-        <div class="art-tech-grid"></div>
+        <div class="art-bakgrund-lager" id="art-bakgrund-lager">
+            <!-- Befintliga grundmotiv i startutsnittet (Hero) -->
+            <div class="art-ljus art-ljus-cyan"></div>
+            <div class="art-ljus art-ljus-orange"></div>
+            <div class="art-ljus art-ljus-korall"></div>
+            <div class="art-ljus art-ljus-bla"></div>
+            <div class="art-ljus art-ljus-lila"></div>
+            <div class="art-ljus art-ljus-magenta"></div>
+
+            <!-- Utökning uppåt (extra motiv ovanför startutsnittet) -->
+            <div class="art-ljus art-ljus-extra-topp-lila"></div>
+            <div class="art-ljus art-ljus-extra-topp-cyan"></div>
+
+            <!-- Utökning nedåt (fler harmoniska färgfält som avtäcks under scrollningen) -->
+            <div class="art-ljus art-ljus-extra-mitt-korall"></div>
+            <div class="art-ljus art-ljus-extra-mitt-bla"></div>
+            <div class="art-ljus art-ljus-extra-mitt-cyan"></div>
+            <div class="art-ljus art-ljus-extra-nedre-orange"></div>
+            <div class="art-ljus art-ljus-extra-nedre-magenta"></div>
+            <div class="art-ljus art-ljus-extra-botten-cyan"></div>
+            <div class="art-ljus art-ljus-extra-botten-korall"></div>
+
+            <!-- Tekniskt koordinatnät genom hela det utökade lagret -->
+            <div class="art-tech-grid"></div>
+        </div>
+        <!-- Vinjett och taktilt analogt filmkorn i observationsramen -->
         <div class="art-vignette"></div>
         <div class="art-grain"></div>
     </div>
