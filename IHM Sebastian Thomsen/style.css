@@ -56,13 +56,13 @@ html {
     --knapptext: #ffffff;
     /* Textfärg på knapp */
 
-    /* Glansiga glaspartier (Ljust läge: krispigt vitt frostat glas) */
-    --glas-bakgrund: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.48) 45%, rgba(255, 255, 255, 0.70) 100%);
-    --glas-kant: rgba(255, 255, 255, 0.90);
-    --glas-reflektion: linear-gradient(175deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.08) 55%, transparent 100%);
-    --glas-sken: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), inset 0 0 0 1px rgba(255, 255, 255, 0.45);
-    --glas-hover-border: rgba(255, 255, 255, 1);
-    --glas-hover-sken: inset 0 1px 2px 0 rgba(255, 255, 255, 1);
+    /* Glansiga glaspartier (Ljust läge: transparent 3D-frostat glas inspirerat av referenserna) */
+    --glas-bakgrund: linear-gradient(135deg, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.12) 40%, rgba(255, 255, 255, 0.22) 100%);
+    --glas-kant: rgba(255, 255, 255, 0.65);
+    --glas-reflektion: linear-gradient(135deg, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.08) 28%, transparent 58%);
+    --glas-sken: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95), inset 1px 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.25), inset -1px 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 0 24px 0 rgba(255, 255, 255, 0.10);
+    --glas-hover-border: rgba(255, 255, 255, 0.95);
+    --glas-hover-sken: inset 0 1.5px 2px 0 rgba(255, 255, 255, 1), inset 1px 0 1px 0 rgba(255, 255, 255, 0.65), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.35), inset 0 0 28px 0 rgba(255, 255, 255, 0.18);
 
     /* Form & mått */
     --luft: 1rem;
@@ -98,258 +98,47 @@ html {
     transition: background-color 0.4s ease;
 }
 
-/* Parallax-lager: Skapad med extra höjd så att nya motiv avtäcks under scrollning */
+/* Parallax-lager: Förlängt sammanhängande lager som rör sig med mjuk matematisk precision */
 .art-bakgrund-lager {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: calc(100vh + 1100px);
+    height: calc(100vh + 1200px);
+    min-height: 2400px;
     will-change: transform;
     pointer-events: none;
+    transform: translate3d(0, 0, 0);
 }
 
 @media (max-width: 767px) {
     .art-bakgrund-lager {
-        height: calc(100vh + 750px);
+        height: calc(100vh + 900px);
+        min-height: 1900px;
     }
 }
 
-/* Gemensam stil för de organiska färgfälten: stora, suddiga och mjuka */
-.art-ljus {
+/* Sammanhängande bakgrundscanvas: Täcker hela det utökade lagret utan skarvar eller segment */
+.art-bakgrund-canvas {
     position: absolute;
-    border-radius: 50%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
     pointer-events: none;
-    will-change: transform;
-    transition: background 0.4s ease, opacity 0.4s ease;
 }
 
-/* --------------------------------------------------------------------------
-   STARTUTSNITT: Identisk färgsättning och placering i Hero (0 - 100vh)
-   -------------------------------------------------------------------------- */
-
-/* FÄLT 1: Mjukt cyan/turkost fält längs nedre och vänstra kanten med tydligare glow */
-.art-ljus-cyan {
-    top: 45vh;
-    left: -12vw;
-    width: 65vw;
-    height: 65vw;
-    max-width: 950px;
-    max-height: 950px;
-    background: radial-gradient(circle, var(--cyan) 0%, rgba(0, 185, 200, 0.55) 45%, transparent 75%);
-    border-radius: 46% 54% 60% 40% / 50% 45% 55% 50%;
-    filter: blur(var(--blur-grad));
-    opacity: 0.68;
-}
-
-/* FÄLT 2: Varmt orange ljusfält mot övre och högra kanten med rikare glöd */
-.art-ljus-orange {
-    top: -15vh;
-    right: -10vw;
-    width: 60vw;
-    height: 60vw;
-    max-width: 880px;
-    max-height: 880px;
-    background: radial-gradient(circle, var(--orange) 0%, rgba(235, 115, 62, 0.55) 45%, transparent 75%);
-    border-radius: 55% 45% 40% 60% / 45% 55% 50% 50%;
-    filter: blur(var(--blur-grad));
-    opacity: 0.64;
-}
-
-/* FÄLT 3: Korall & dämpad färgblödning mot höger mittsektion */
-.art-ljus-korall {
-    top: 28vh;
-    right: 4vw;
-    width: 50vw;
-    height: 48vw;
-    max-width: 720px;
-    max-height: 700px;
-    background: radial-gradient(ellipse, var(--coral) 0%, rgba(225, 95, 92, 0.46) 50%, transparent 75%);
-    border-radius: 60% 40% 50% 50% / 40% 60% 50% 50%;
-    filter: blur(calc(var(--blur-grad) * 1.15));
-    opacity: 0.52;
-}
-
-/* FÄLT 4: Djupblått område runt mitten – skapar ett lugnt, harmoniskt centrum */
-.art-ljus-bla {
-    top: 25vh;
-    left: 20vw;
-    width: 62vw;
-    height: 52vw;
-    max-width: 900px;
-    max-height: 800px;
-    background: radial-gradient(circle, var(--blue) 0%, rgba(7, 65, 115, 0.52) 55%, transparent 75%);
-    border-radius: 50% 50% 45% 55% / 55% 45% 55% 45%;
-    filter: blur(calc(var(--blur-grad) * 1.25));
-    opacity: 0.72;
-}
-
-/* FÄLT 5: Mörk lila övergång i övre vänstra området */
-.art-ljus-lila {
-    top: -5vh;
-    left: 12vw;
-    width: 48vw;
-    height: 48vw;
-    max-width: 700px;
-    max-height: 700px;
-    background: radial-gradient(circle, var(--purple) 0%, rgba(95, 48, 112, 0.42) 45%, transparent 75%);
-    border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
-    filter: blur(var(--blur-grad));
-    opacity: 0.54;
-}
-
-/* FÄLT 6: Subtil dämpad magenta i nedre mitten för analog fotokänsla */
-.art-ljus-magenta {
-    top: 65vh;
-    right: 18vw;
-    width: 46vw;
-    height: 42vw;
-    max-width: 680px;
-    max-height: 620px;
-    background: radial-gradient(circle, var(--magenta) 0%, rgba(138, 42, 95, 0.38) 40%, transparent 75%);
-    border-radius: 50% 50% 40% 60% / 60% 40% 50% 50%;
-    filter: blur(calc(var(--blur-grad) * 1.2));
-    opacity: 0.42;
-}
-
-/* --------------------------------------------------------------------------
-   UTÖKNING UPPÅT: Extra motiv ovanför startutsnittet
-   -------------------------------------------------------------------------- */
-.art-ljus-extra-topp-lila {
-    top: -38vh;
-    left: 32vw;
-    width: 52vw;
-    height: 50vw;
-    max-width: 750px;
-    max-height: 720px;
-    background: radial-gradient(circle, var(--purple) 0%, rgba(95, 48, 112, 0.42) 45%, transparent 75%);
-    border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
-    filter: blur(var(--blur-grad));
-    opacity: 0.50;
-}
-
-.art-ljus-extra-topp-cyan {
-    top: -32vh;
-    left: -10vw;
-    width: 58vw;
-    height: 56vw;
-    max-width: 820px;
-    max-height: 800px;
-    background: radial-gradient(circle, var(--cyan) 0%, rgba(0, 185, 200, 0.50) 45%, transparent 75%);
-    border-radius: 46% 54% 60% 40% / 50% 45% 55% 50%;
-    filter: blur(var(--blur-grad));
-    opacity: 0.56;
-}
-
-/* --------------------------------------------------------------------------
-   UTÖKNING NEDÅT: Fler av samma motiv och färger som avtäcks under scroll
-   -------------------------------------------------------------------------- */
-
-/* Mitten-sektion (avtäcks runt Om mig & Tjänster) */
-.art-ljus-extra-mitt-korall {
-    top: calc(100vh + 60px);
-    right: -6vw;
-    width: 55vw;
-    height: 52vw;
-    max-width: 780px;
-    max-height: 740px;
-    background: radial-gradient(ellipse, var(--coral) 0%, rgba(225, 95, 92, 0.48) 50%, transparent 75%);
-    border-radius: 60% 40% 50% 50% / 40% 60% 50% 50%;
-    filter: blur(calc(var(--blur-grad) * 1.15));
-    opacity: 0.54;
-}
-
-.art-ljus-extra-mitt-bla {
-    top: calc(100vh + 160px);
-    left: 18vw;
-    width: 60vw;
-    height: 52vw;
-    max-width: 880px;
-    max-height: 780px;
-    background: radial-gradient(circle, var(--blue) 0%, rgba(7, 65, 115, 0.50) 55%, transparent 75%);
-    border-radius: 50% 50% 45% 55% / 55% 45% 55% 45%;
-    filter: blur(calc(var(--blur-grad) * 1.25));
-    opacity: 0.68;
-}
-
-.art-ljus-extra-mitt-cyan {
-    top: calc(100vh + 360px);
-    left: -12vw;
-    width: 64vw;
-    height: 64vw;
-    max-width: 920px;
-    max-height: 920px;
-    background: radial-gradient(circle, var(--cyan) 0%, rgba(0, 185, 200, 0.52) 45%, transparent 75%);
-    border-radius: 46% 54% 60% 40% / 50% 45% 55% 50%;
-    filter: blur(var(--blur-grad));
-    opacity: 0.64;
-}
-
-/* Nedre sektion (avtäcks mot Projekt) */
-.art-ljus-extra-nedre-orange {
-    top: calc(100vh + 520px);
-    right: -8vw;
-    width: 58vw;
-    height: 58vw;
-    max-width: 850px;
-    max-height: 850px;
-    background: radial-gradient(circle, var(--orange) 0%, rgba(235, 115, 62, 0.52) 45%, transparent 75%);
-    border-radius: 55% 45% 40% 60% / 45% 55% 50% 50%;
-    filter: blur(var(--blur-grad));
-    opacity: 0.62;
-}
-
-.art-ljus-extra-nedre-magenta {
-    top: calc(100vh + 660px);
-    left: 22vw;
-    width: 48vw;
-    height: 44vw;
-    max-width: 700px;
-    max-height: 640px;
-    background: radial-gradient(circle, var(--magenta) 0%, rgba(138, 42, 95, 0.38) 40%, transparent 75%);
-    border-radius: 50% 50% 40% 60% / 60% 40% 50% 50%;
-    filter: blur(calc(var(--blur-grad) * 1.2));
-    opacity: 0.44;
-}
-
-/* Bottensektion (avtäcks runt Kontaktformuläret) */
-.art-ljus-extra-botten-cyan {
-    top: calc(100vh + 780px);
-    left: -8vw;
-    width: 65vw;
-    height: 65vw;
-    max-width: 940px;
-    max-height: 940px;
-    background: radial-gradient(circle, var(--cyan) 0%, rgba(0, 185, 200, 0.54) 45%, transparent 75%);
-    border-radius: 50% 50% 45% 55% / 55% 45% 55% 45%;
-    filter: blur(var(--blur-grad));
-    opacity: 0.66;
-}
-
-.art-ljus-extra-botten-korall {
-    top: calc(100vh + 820px);
-    right: 2vw;
-    width: 56vw;
-    height: 52vw;
-    max-width: 820px;
-    max-height: 760px;
-    background: radial-gradient(ellipse, var(--coral) 0%, rgba(225, 95, 92, 0.50) 50%, transparent 75%);
-    border-radius: 60% 40% 50% 50% / 40% 60% 50% 50%;
-    filter: blur(calc(var(--blur-grad) * 1.15));
-    opacity: 0.56;
-}
-
-/* TEKNISKT KOORDINAT-RUTNÄT: Täcker hela det förlängda lagret med subtila punkter */
+/* TEKNISKT KOORDINAT-RUTNÄT: Täcker hela det sammanhängande lagret med subtila punkter */
 .art-tech-grid {
     position: absolute;
-    inset: -30vh -15vw;
-    width: 130vw;
-    height: calc(100% + 60vh);
+    inset: 0;
+    width: 100%;
+    height: 100%;
     background-image: radial-gradient(rgba(22, 50, 79, 0.08) 1.2px, transparent 1.2px);
     background-size: 38px 38px;
     pointer-events: none;
     opacity: 0.65;
-    will-change: transform;
     transition: opacity 0.4s ease;
 }
 
@@ -1067,34 +856,47 @@ body.morkt .puls-punkt::after {
     padding-top: calc(var(--luft) * 2);
     padding-bottom: calc(var(--luft) * 4);
     border-bottom: none;
+    perspective: 1400px;
 }
 
 .kontakt-kort {
     position: relative;
     overflow: hidden;
     background: var(--glas-bakgrund);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid var(--glas-kant);
-    border-radius: calc(var(--radie) + 6px);
+    border-radius: calc(var(--radie) + 8px);
     padding: calc(var(--luft) * 2.5);
-    box-shadow: var(--glas-sken), 0 20px 48px -12px var(--skugga), 0 0 32px -4px rgba(56, 194, 203, 0.20), 0 0 16px -2px rgba(245, 137, 78, 0.14);
-    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    box-shadow:
+        var(--glas-sken),
+        0 6px 12px -2px rgba(22, 50, 79, 0.04),
+        0 22px 48px -10px var(--skugga),
+        0 44px 88px -16px rgba(22, 50, 79, 0.10);
+    transform-style: preserve-3d;
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Ljusreflex i överkant som på de övriga glasboxarna */
+/* Ljusreflex och subtil högdager på kontaktglaset */
 .kontakt-kort::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 45%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     background: var(--glas-reflektion);
     pointer-events: none;
-    border-radius: calc(var(--radie) + 6px) calc(var(--radie) + 6px) 0 0;
+    border-radius: inherit;
     z-index: 1;
-    transition: background 0.4s ease;
+    transition: background 0.4s ease, opacity 0.4s ease;
+}
+
+body.morkt .kontakt-kort {
+    box-shadow:
+        var(--glas-sken),
+        0 6px 14px -2px rgba(0, 0, 0, 0.35),
+        0 24px 52px -10px rgba(0, 0, 0, 0.60),
+        0 48px 96px -16px rgba(0, 0, 0, 0.70);
 }
 
 .kontakt-kort>* {
@@ -1460,35 +1262,44 @@ body.morkt .social-lank:hover {
     list-style: none;
     padding: 0;
     margin: 0;
+    perspective: 1200px;
 }
 
-/* Boxarna som glansiga glaspartier med integrerad subtil glow */
+/* Boxarna som 3D-glaspartier med skiktade svävande skuggor */
 .kort {
     position: relative;
     overflow: hidden;
     background: var(--glas-bakgrund);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    padding: calc(var(--luft) * 1.75);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    padding: calc(var(--luft) * 1.85);
     border: 1px solid var(--glas-kant);
     border-radius: var(--radie);
-    box-shadow: var(--glas-sken), 0 14px 34px -8px var(--skugga), 0 0 24px -4px rgba(56, 194, 203, 0.16);
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.4s ease;
+    /* 3D flerlagers svävande skugga som lyfter glaset över bakgrunden */
+    box-shadow:
+        var(--glas-sken),
+        0 4px 8px -2px rgba(22, 50, 79, 0.04),
+        0 14px 28px -6px var(--skugga),
+        0 30px 60px -12px rgba(22, 50, 79, 0.08);
+    transform-style: preserve-3d;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.25s ease,
+        background 0.4s ease;
 }
 
-/* Glansig spegelblank ljusreflex i överkant */
+/* Ljusreflex och subtil högdager på glasets ovansida */
 .kort::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 55%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     background: var(--glas-reflektion);
     pointer-events: none;
-    border-radius: var(--radie) var(--radie) 0 0;
+    border-radius: inherit;
     z-index: 1;
-    transition: background 0.4s ease;
+    transition: background 0.4s ease, opacity 0.4s ease;
 }
 
 /* Allt innehåll i kortet hålls ovanför ljusreflexen för kristallklar skärpa */
@@ -1497,20 +1308,40 @@ body.morkt .social-lank:hover {
     z-index: 2;
 }
 
-/* Mjuk lyft- och glanseffekt vid hovring med mer framträdande glow */
+/* Mjuk svävande lyft-effekt vid hovring med 3D-djup */
 .kort:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px) translateZ(8px);
     border-color: var(--glas-hover-border);
     box-shadow:
         var(--glas-hover-sken),
-        0 20px 40px -10px var(--skugga),
-        0 0 32px 0 rgba(56, 194, 203, 0.30),
-        0 0 18px 0 rgba(245, 137, 78, 0.20);
+        0 6px 12px -2px rgba(22, 50, 79, 0.05),
+        0 22px 42px -8px var(--skugga),
+        0 42px 76px -14px rgba(22, 50, 79, 0.12),
+        0 0 28px 0 rgba(56, 194, 203, 0.18);
+}
+
+body.morkt .kort {
+    box-shadow:
+        var(--glas-sken),
+        0 4px 10px -2px rgba(0, 0, 0, 0.35),
+        0 18px 36px -8px rgba(0, 0, 0, 0.55),
+        0 34px 68px -14px rgba(0, 0, 0, 0.65);
+}
+
+body.morkt .kort:hover {
+    box-shadow:
+        var(--glas-hover-sken),
+        0 6px 14px -2px rgba(0, 0, 0, 0.45),
+        0 24px 48px -8px rgba(0, 0, 0, 0.70),
+        0 46px 88px -16px rgba(0, 0, 0, 0.80),
+        0 0 30px 0 rgba(232, 106, 58, 0.22);
 }
 
 .kort h3 {
     margin-top: 0;
     margin-bottom: 0.5rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
 }
 
 .kort p {
@@ -1733,13 +1564,13 @@ body.morkt {
     --knapptext: #ffffff;
     /* Textfärg på knapp */
 
-    /* Glansiga glaspartier (Mörkt frostat nattglas som bryter bakgrundens ljus) */
-    --glas-bakgrund: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 45%, rgba(255, 255, 255, 0.07) 100%), rgba(8, 12, 22, 0.70);
-    --glas-kant: rgba(255, 255, 255, 0.16);
-    --glas-reflektion: linear-gradient(175deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 55%, transparent 100%);
-    --glas-sken: inset 0 1px 1px 0 rgba(255, 255, 255, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-    --glas-hover-border: rgba(255, 255, 255, 0.35);
-    --glas-hover-sken: inset 0 1px 2px 0 rgba(255, 255, 255, 0.6);
+    /* Glansiga glaspartier (Mörkt frostat nattglas som bryter bakgrundens ljus i 3D) */
+    --glas-bakgrund: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 40%, rgba(255, 255, 255, 0.05) 100%), rgba(8, 12, 22, 0.48);
+    --glas-kant: rgba(255, 255, 255, 0.18);
+    --glas-reflektion: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 28%, transparent 55%);
+    --glas-sken: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.50), inset 1px 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.10), inset -1px 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 0 20px 0 rgba(255, 255, 255, 0.04);
+    --glas-hover-border: rgba(255, 255, 255, 0.40);
+    --glas-hover-sken: inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.70), inset 1px 0 1px 0 rgba(255, 255, 255, 0.30), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.16), inset 0 0 28px 0 rgba(255, 255, 255, 0.10);
 
     --skugga: rgba(0, 0, 0, 0.55);
 
@@ -1752,14 +1583,12 @@ body.morkt {
     --header-pill-hover-border: rgba(255, 255, 255, 0.60);
 }
 
-body.morkt .art-ljus-lila,
-body.morkt .art-ljus-extra-topp-lila {
-    opacity: 0.18;
+body.morkt .art-sh-purple {
+    opacity: 0.22;
 }
 
-body.morkt .art-ljus-magenta,
-body.morkt .art-ljus-extra-nedre-magenta {
-    opacity: 0.15;
+body.morkt .art-sh-magenta {
+    opacity: 0.18;
 }
 
 /* ==========================================================================
@@ -1809,7 +1638,7 @@ body.morkt .art-ljus-extra-nedre-magenta {
     }
 
     .art-bakgrund-lager,
-    .art-ljus,
+    .art-bakgrund-canvas,
     .art-tech-grid,
     #om-bild {
         transform: none !important;

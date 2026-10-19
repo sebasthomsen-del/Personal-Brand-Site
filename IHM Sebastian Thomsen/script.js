@@ -98,6 +98,9 @@ try {
         if (lager) {
             lager.style.transform = arMinskadRorelse ? "none" : "";
         }
+        if (arMinskadRorelse) {
+            document.querySelectorAll(".kort, .kontakt-kort").forEach(k => k.style.transform = "");
+        }
     });
 } catch (_) { }
 
@@ -133,32 +136,57 @@ const omBild = document.querySelector("#om-bild");
 const omSektion = document.querySelector("#om");
 
 let winHeight = window.innerHeight;
+let docHeight = document.documentElement.scrollHeight;
+let maxScroll = Math.max(docHeight - winHeight, 1);
 let layerHeight = artBakgrundLager ? artBakgrundLager.offsetHeight : winHeight;
 let maxTravel = Math.max(layerHeight - winHeight, 0);
 
 function uppdateraBakgrundDimensioner() {
     winHeight = window.innerHeight;
+    docHeight = document.documentElement.scrollHeight;
+    maxScroll = Math.max(docHeight - winHeight, 1);
     if (artBakgrundLager) {
         layerHeight = artBakgrundLager.offsetHeight;
         maxTravel = Math.max(layerHeight - winHeight, 0);
     }
 }
 
+// Uppdatera dimensioner vid resize och när sidan har laddats komplett
 window.addEventListener("resize", () => {
     uppdateraBakgrundDimensioner();
     requestScrollUpdate();
 }, { passive: true });
 
+window.addEventListener("load", () => {
+    uppdateraBakgrundDimensioner();
+    requestScrollUpdate();
+});
+
+if (window.screen && window.screen.orientation) {
+    window.screen.orientation.addEventListener("change", () => {
+        setTimeout(uppdateraBakgrundDimensioner, 150);
+    });
+}
+
 let ticking = false;
 
 function onScrollFrame() {
     const scrollY = window.scrollY;
-    const maxScroll = (document.documentElement.scrollHeight - window.innerHeight) || 1;
-    const scrollFraction = Math.min(Math.max(scrollY / maxScroll, 0), 1);
+
+    // Om dokumentets totala höjd ändrats märkbart (t.ex. typsnittsladdning eller dynamisk vy)
+    const currentDocHeight = document.documentElement.scrollHeight;
+    if (Math.abs(currentDocHeight - docHeight) > 80) {
+        docHeight = currentDocHeight;
+        maxScroll = Math.max(docHeight - winHeight, 1);
+    }
+
+    // Strikt mjuk, monoton scrollfraktion utan hopp eller överrullningsglipor
+    const clampedScroll = Math.min(Math.max(scrollY, 0), maxScroll);
+    const scrollFraction = clampedScroll / maxScroll;
 
     // Uppdatera laserspår på headerns underkant
     if (scrollLaser) {
-        scrollLaser.style.width = `${scrollFraction * 100}%`;
+        scrollLaser.style.width = `${(scrollFraction * 100).toFixed(2)}%`;
     }
 
     // Tona ut scroll-ledtråd i hero vid första scrollen
@@ -179,20 +207,20 @@ function onScrollFrame() {
         }
     }
 
-    // Mjuk, synlig parallax på bakgrunden (endast om användaren inte valt minskad rörelse)
+    // Mjuk, helt sömlös och kontinuerlig vertikal parallax på bakgrunden
     if (!arMinskadRorelse && artBakgrundLager) {
         // Kontinuerlig vertikal parallax genom hela sidan:
-        // Bakgrunden rör sig uppåt långsammare än innehållet så att de utökade motiven
-        // gradvis avtäcks ovanifrån och nedåt under scrollningen utan glipor
-        const bgOffset = scrollFraction * -maxTravel;
+        // Bakgrunden rör sig uppåt lugnt och kontinuerligt så att hela motivet
+        // avtäcks gradvis från topp till botten utan några hopp, segmentbyten eller synliga skarvar.
+        const bgOffset = -scrollFraction * maxTravel;
         artBakgrundLager.style.transform = `translate3d(0, ${bgOffset.toFixed(2)}px, 0)`;
 
         // Subtil kameraglid på profilbilden i "Om mig"
         if (omBild && omSektion) {
             const omRect = omSektion.getBoundingClientRect();
-            if (omRect.top < window.innerHeight && omRect.bottom > 0) {
-                const diff = (window.innerHeight / 2) - (omRect.top + omRect.height / 2);
-                omBild.style.transform = `translate3d(0, ${diff * 0.05}px, 0) scale(1.03)`;
+            if (omRect.top < winHeight && omRect.bottom > 0) {
+                const diff = (winHeight / 2) - (omRect.top + omRect.height / 2);
+                omBild.style.transform = `translate3d(0, ${(diff * 0.05).toFixed(2)}px, 0) scale(1.03)`;
             }
         }
     } else if (artBakgrundLager) {
@@ -214,11 +242,43 @@ window.addEventListener("scroll", () => {
     uppdateraAktivLank();
 }, { passive: true });
 
+// ✦ Subtil 3D-glaslutning vid musrörelse (svävande glasskiva) ✦
+function initGlas3D() {
+    if (arMinskadRorelse || !window.matchMedia("(pointer: fine)").matches) return;
+
+    const glaskort = document.querySelectorAll(".kort, .kontakt-kort");
+    glaskort.forEach(kort => {
+        let frameId = null;
+
+        kort.addEventListener("mousemove", (e) => {
+            if (arMinskadRorelse) return;
+            const rect = kort.getBoundingClientRect();
+            // Centrerad offset (-0.5 till +0.5)
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+            if (frameId) cancelAnimationFrame(frameId);
+            frameId = requestAnimationFrame(() => {
+                // Mycket försiktig vinkel (max 2-3 grader) som förstärker 3D-djupet utan att störa texten
+                const rotX = (-y * 4.5).toFixed(2);
+                const rotY = (x * 4.5).toFixed(2);
+                kort.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px) translateZ(8px)`;
+            });
+        });
+
+        kort.addEventListener("mouseleave", () => {
+            if (frameId) cancelAnimationFrame(frameId);
+            kort.style.transform = "";
+        });
+    });
+}
+
 window.addEventListener("DOMContentLoaded", () => {
     uppdateraBakgrundDimensioner();
     initScrollAvsloja();
     requestScrollUpdate();
     uppdateraAktivLank();
+    initGlas3D();
 });
 
 window.addEventListener("load", () => {
