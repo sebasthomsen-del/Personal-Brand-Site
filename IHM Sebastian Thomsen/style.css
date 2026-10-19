@@ -79,10 +79,10 @@ html {
 }
 
 /* ==========================================================================
-   3 · EXPERIMENTELL GRADIENTBAKGRUND MED PARALLAX & ANALOGT FILMKORN
+   3 · GENERATIV GRADIENTBAKGRUND MED TALL PARALLAX & ANALOGT FILMKORN
    ========================================================================== */
 
-/* Huvudbehållare: Fixerad i viewporten som en observationsram */
+/* Huvudbehållare: Fixerad i viewporten som observationsram */
 .art-bakgrund {
     position: fixed;
     top: 0;
@@ -96,136 +96,66 @@ html {
     transition: background-color 0.4s ease;
 }
 
-/* Parallax-lager: Extra höjd för mjuk, glipfri parallaxrörelse */
+/* Parallax-lager: Skapad med extra höjd så att nya motiv avtäcks under scroll */
 .art-bakgrund-lager {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: calc(100vh + 320px);
-    background-color: var(--background);
-    background-image: radial-gradient(circle at 50% 45%, var(--background-dark) 0%, var(--background) 100%);
+    height: calc(100vh + 850px);
     will-change: transform;
     pointer-events: none;
-    transition: background-color 0.4s ease;
 }
 
-/* Gemensam stil för de organiska färgfälten: stora, suddiga och mjuka */
-.art-ljus {
+@media (max-width: 767px) {
+    .art-bakgrund-lager {
+        height: calc(100vh + 650px);
+    }
+}
+
+/* Bakgrundsbild-element (både picture och dess inbäddade img) */
+.art-bakgrund-bild {
     position: absolute;
-    border-radius: 50%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
     pointer-events: none;
-    will-change: transform;
-    transition: background 0.4s ease, opacity 0.4s ease;
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* FÄLT 1: Mjukt cyan/turkost fält längs nedre och vänstra kanten med tydligare glow */
-.art-ljus-cyan {
-    bottom: -15vh;
-    left: -12vw;
-    width: 65vw;
-    height: 65vw;
-    max-width: 950px;
-    max-height: 950px;
-    background: radial-gradient(circle, var(--cyan) 0%, rgba(0, 185, 200, 0.55) 45%, transparent 75%);
-    border-radius: 46% 54% 60% 40% / 50% 45% 55% 50%;
-    filter: blur(var(--blur-grad));
-    opacity: 0.68;
+.art-bakgrund-bild img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
 }
 
-/* FÄLT 2: Varmt orange ljusfält mot övre och högra kanten med rikare glöd */
-.art-ljus-orange {
-    top: -15vh;
-    right: -10vw;
-    width: 60vw;
-    height: 60vw;
-    max-width: 880px;
-    max-height: 880px;
-    background: radial-gradient(circle, var(--orange) 0%, rgba(235, 115, 62, 0.55) 45%, transparent 75%);
-    border-radius: 55% 45% 40% 60% / 45% 55% 50% 50%;
-    filter: blur(var(--blur-grad));
-    opacity: 0.64;
+/* Tema-växling mellan ljust och mörkt läge för bakgrundsbilden */
+.art-bild-ljus {
+    opacity: 0.96;
 }
 
-/* FÄLT 3: Korall & dämpad färgblödning mot höger mittsektion */
-.art-ljus-korall {
-    top: 28vh;
-    right: 4vw;
-    width: 50vw;
-    height: 48vw;
-    max-width: 720px;
-    max-height: 700px;
-    background: radial-gradient(ellipse, var(--coral) 0%, rgba(225, 95, 92, 0.46) 50%, transparent 75%);
-    border-radius: 60% 40% 50% 50% / 40% 60% 50% 50%;
-    filter: blur(calc(var(--blur-grad) * 1.15));
-    opacity: 0.52;
+.art-bild-mork {
+    opacity: 0;
 }
 
-/* FÄLT 4: Djupblått område runt mitten – skapar ett lugnt, harmoniskt centrum */
-.art-ljus-bla {
-    top: 25vh;
-    left: 20vw;
-    width: 62vw;
-    height: 52vw;
-    max-width: 900px;
-    max-height: 800px;
-    background: radial-gradient(circle, var(--blue) 0%, rgba(7, 65, 115, 0.52) 55%, transparent 75%);
-    border-radius: 50% 50% 45% 55% / 55% 45% 55% 45%;
-    filter: blur(calc(var(--blur-grad) * 1.25));
-    opacity: 0.72;
+body.morkt .art-bild-ljus {
+    opacity: 0;
 }
 
-/* FÄLT 5: Mörk lila övergång i övre vänstra området */
-.art-ljus-lila {
-    top: -5vh;
-    left: 12vw;
-    width: 48vw;
-    height: 48vw;
-    max-width: 700px;
-    max-height: 700px;
-    background: radial-gradient(circle, var(--purple) 0%, rgba(95, 48, 112, 0.42) 45%, transparent 75%);
-    border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
-    filter: blur(var(--blur-grad));
-    opacity: 0.54;
+body.morkt .art-bild-mork {
+    opacity: 0.96;
 }
 
-/* FÄLT 6: Subtil dämpad magenta i nedre mitten för analog fotokänsla */
-.art-ljus-magenta {
-    bottom: -10vh;
-    right: 18vw;
-    width: 46vw;
-    height: 42vw;
-    max-width: 680px;
-    max-height: 620px;
-    background: radial-gradient(circle, var(--magenta) 0%, rgba(138, 42, 95, 0.38) 40%, transparent 75%);
-    border-radius: 50% 50% 40% 60% / 60% 40% 50% 50%;
-    filter: blur(calc(var(--blur-grad) * 1.2));
-    opacity: 0.42;
-}
-
-/* TEKNISKT KOORDINAT-RUTNÄT: Subtilt futuristiskt punktmönster med parallax */
-.art-tech-grid {
-    position: absolute;
-    inset: -30vh -15vw;
-    width: 130vw;
-    height: 160vh;
-    background-image: radial-gradient(rgba(22, 50, 79, 0.08) 1.2px, transparent 1.2px);
-    background-size: 38px 38px;
-    pointer-events: none;
-    opacity: 0.65;
-    will-change: transform;
-    transition: opacity 0.4s ease;
-}
-
-body.morkt .art-tech-grid {
-    display: none;
-}
-
-/* VIGNETTE: Mjuk analog toning mot kanterna för djup */
+/* VIGNETTE: Mjuk analog kanttoning för visuellt djup */
 .art-vignette {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at center, transparent 45%, var(--vignette-farg) 100%);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 48%, var(--vignette-farg) 100%);
     pointer-events: none;
     transition: background 0.4s ease;
 }
@@ -240,14 +170,15 @@ body.morkt .art-tech-grid {
     background-repeat: repeat;
     background-size: 160px 160px;
     mix-blend-mode: overlay;
-    opacity: 0.30;
+    opacity: 0.34;
     pointer-events: none;
     transition: opacity 0.4s ease;
 }
 
 body.morkt .art-grain {
-    opacity: 0.38;
+    opacity: 0.42;
 }
+
 
 /* ==========================================================================
    4 · Grundstil för typografi och länkar
@@ -980,7 +911,7 @@ body.morkt .puls-punkt::after {
     align-items: center;
     gap: 0.5rem;
     padding: 0.35rem 0.85rem;
-    border-radius: 9999px;
+    border-radius: 999px;
     background: rgba(255, 255, 255, 0.55);
     border: 1px solid var(--glas-kant);
     font-size: 0.75rem;
@@ -1621,14 +1552,6 @@ body.morkt {
     --header-pill-hover-border: rgba(255, 255, 255, 0.60);
 }
 
-body.morkt .art-ljus-lila {
-    opacity: 0.18;
-}
-
-body.morkt .art-ljus-magenta {
-    opacity: 0.15;
-}
-
 /* ==========================================================================
    10 · Scroll-aktiverade entréer och futuristisk dynamik
    ========================================================================== */
@@ -1676,8 +1599,6 @@ body.morkt .art-ljus-magenta {
     }
 
     .art-bakgrund-lager,
-    .art-ljus,
-    .art-tech-grid,
     #om-bild {
         transform: none !important;
     }

@@ -12,6 +12,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="preload" as="image" href="img/bakgrund_parallax_desktop.jpg" media="(min-width: 768px)">
+    <link rel="preload" as="image" href="img/bakgrund_parallax.jpg" media="(max-width: 767px)">
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
     <!-- Google Tag Manager -->
@@ -21,7 +23,7 @@
                     new Date().getTime(), event: 'gtm.js'
             }); var f = d.getElementsByTagName(s)[0],
                 j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-PD2MC9BB');</script>
     <!-- End Google Tag Manager -->
 </head>
@@ -31,19 +33,20 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PD2MC9BB" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <!-- ✦ Premium experimentell gradientbakgrund med subtilt rörlig parallax & analogt filmkorn ✦ -->
+    <!-- ✦ Högupplöst generativ gradientbakgrund med mjuk vertikal parallax & analogt filmkorn ✦ -->
     <div class="art-bakgrund" aria-hidden="true">
         <div class="art-bakgrund-lager" id="art-bakgrund-lager">
-            <div class="art-ljus art-ljus-cyan"></div>
-            <div class="art-ljus art-ljus-orange"></div>
-            <div class="art-ljus art-ljus-korall"></div>
-            <div class="art-ljus art-ljus-bla"></div>
-            <div class="art-ljus art-ljus-lila"></div>
-            <div class="art-ljus art-ljus-magenta"></div>
-            <div class="art-tech-grid"></div>
-            <div class="art-vignette"></div>
-            <div class="art-grain"></div>
+            <picture class="art-bakgrund-bild art-bild-ljus">
+                <source media="(min-width: 768px)" srcset="img/bakgrund_parallax_desktop.jpg">
+                <img src="img/bakgrund_parallax.jpg" alt="" loading="eager" decoding="async">
+            </picture>
+            <picture class="art-bakgrund-bild art-bild-mork">
+                <source media="(min-width: 768px)" srcset="img/bakgrund_parallax_dark_desktop.jpg">
+                <img src="img/bakgrund_parallax_dark.jpg" alt="" loading="eager" decoding="async">
+            </picture>
         </div>
+        <div class="art-grain" id="art-grain"></div>
+        <div class="art-vignette"></div>
     </div>
 
     <header class="sidhuvud">
