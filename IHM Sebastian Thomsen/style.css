@@ -1538,15 +1538,15 @@ body.morkt {
     --blue: #08223c;
     /* Djup, lugnande marinblå ton i mitten */
     --cyan: #0284c7;
-    /* Skarp och elegant turkos/cyan ton längs kanten */
-    --orange: #c85a2b;
-    /* Subtilt och dämpat varmt ljusläckage i övre hörnet */
+    /* Skarp och elegant turkos/cyan ton */
+    --orange: #b85427;
+    /* Dämpad, varm bärnsten och aprikosglöd */
     --coral: #963d2e;
     /* Dämpad mörk terrakotta */
-    --purple: #0b1520;
-    /* Ersatt lila med diskret djup kol/skiffer utan lila undertoner */
-    --magenta: #0c1822;
-    /* Ersatt magenta med mörk neutral kol/skiffer */
+    --purple: #1e1932;
+    /* Dämpad nattsyren som tillför lugn och varierad nyans */
+    --magenta: #261726;
+    /* Dämpad nattskimrande rosenton */
     --vignette-farg: rgba(3, 5, 8, 0.88);
     /* Mörkare vinjett för renare och djupare inramning */
 
@@ -1584,11 +1584,11 @@ body.morkt {
 }
 
 body.morkt .art-sh-purple {
-    opacity: 0.22;
+    opacity: 0.35;
 }
 
 body.morkt .art-sh-magenta {
-    opacity: 0.18;
+    opacity: 0.30;
 }
 
 /* ==========================================================================

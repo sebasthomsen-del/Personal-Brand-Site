@@ -35,8 +35,8 @@
     <div class="art-bakgrund" aria-hidden="true">
         <div class="art-bakgrund-lager" id="art-bakgrund-lager">
             <!-- En enda stor, sammanhängande digital konstduk utan skarvar eller segment -->
-            <svg class="art-bakgrund-canvas" viewBox="0 0 1600 3600" preserveAspectRatio="none"
-                aria-hidden="true" focusable="false">
+            <svg class="art-bakgrund-canvas" viewBox="0 0 1600 3600" preserveAspectRatio="none" aria-hidden="true"
+                focusable="false">
                 <defs>
                     <radialGradient id="art-cyan" cx="50%" cy="50%" r="50%">
                         <stop offset="0%" stop-color="var(--cyan)" stop-opacity="0.82" />
@@ -80,26 +80,65 @@
                     </filter>
                 </defs>
 
-                <!-- Sammanhängande organiskt färgflöde genom hela sidans längd -->
+                <!-- Sammanhängande, asymmetriskt och organiskt färgflöde genom hela sidans längd -->
                 <g filter="url(#art-blur)">
-                    <!-- Startutsnitt (Hero) -->
-                    <ellipse cx="600" cy="180" rx="480" ry="460" fill="url(#art-purple)" class="art-sh-purple" />
-                    <ellipse cx="1480" cy="120" rx="560" ry="540" fill="url(#art-orange)" />
-                    <ellipse cx="80" cy="580" rx="600" ry="580" fill="url(#art-cyan)" />
-                    <ellipse cx="780" cy="460" rx="540" ry="480" fill="url(#art-blue)" />
-                    <ellipse cx="1380" cy="540" rx="460" ry="440" fill="url(#art-coral)" />
-                    <ellipse cx="1180" cy="940" rx="400" ry="380" fill="url(#art-magenta)" class="art-sh-magenta" />
+                    <!-- ✦ ZON 1: STARTUTSNITT / HERO (cy: 0 - 850) ✦ -->
+                    <!-- Höger-topp: Varm, strålande aprikos/solnedgång (bevarar signaturen) -->
+                    <ellipse cx="1400" cy="140" rx="460" ry="400" fill="url(#art-orange)" opacity="0.78" />
+                    <!-- Vänster-topp: Sval himmelsblå bas som ger lugn och rymd -->
+                    <ellipse cx="320" cy="160" rx="520" ry="340" fill="url(#art-blue)" opacity="0.62" />
+                    <!-- Mitten-topp: Mjuk syren/skiffer som knyter ihop toppen -->
+                    <ellipse cx="840" cy="220" rx="360" ry="240" fill="url(#art-purple)" class="art-sh-purple" opacity="0.50" />
+                    <!-- Vänster sida (under rubriken): Friskt cyanljus -->
+                    <ellipse cx="140" cy="620" rx="360" ry="420" fill="url(#art-cyan)" opacity="0.75" />
+                    <!-- Höger sida (under Hero-text): Mjuk, dämpad korallton -->
+                    <ellipse cx="1260" cy="660" rx="340" ry="280" fill="url(#art-coral)" opacity="0.60" />
+                    <!-- Asymmetrisk mittaccent: Liten rosenmagenta glöd -->
+                    <ellipse cx="960" cy="840" rx="240" ry="190" fill="url(#art-magenta)" class="art-sh-magenta" opacity="0.48" />
 
-                    <!-- Övergång genom Om mig och Tjänster -->
-                    <ellipse cx="1440" cy="1550" rx="520" ry="500" fill="url(#art-coral)" />
-                    <ellipse cx="720" cy="1680" rx="560" ry="500" fill="url(#art-blue)" />
-                    <ellipse cx="80" cy="1920" rx="580" ry="560" fill="url(#art-cyan)" />
+                    <!-- ✦ ZON 2: ÖVERGÅNG GENOM "OM MIG" (cy: 850 - 1700) ✦ -->
+                    <!-- VÄNSTER: Varm terrakotta/korall (bryter tidigare vänster-blå mönster) -->
+                    <ellipse cx="200" cy="1200" rx="420" ry="360" fill="url(#art-coral)" opacity="0.68" />
+                    <!-- Vänster-mitt: Liten, varm aprikos/solnedgångsaccent -->
+                    <ellipse cx="440" cy="1420" rx="220" ry="190" fill="url(#art-orange)" opacity="0.52" />
+                    <!-- HÖGER: Sval, elegant cyan och himmelsblå (bryter tidigare höger-orange mönster) -->
+                    <ellipse cx="1360" cy="1250" rx="460" ry="480" fill="url(#art-cyan)" opacity="0.70" />
+                    <!-- Mitten: Djup, lugnande marinblå bas bakom profiltexten -->
+                    <ellipse cx="760" cy="1150" rx="540" ry="320" fill="url(#art-blue)" opacity="0.58" />
+                    <!-- Höger-mitt: Subtil rosenmagenta/syren övergång -->
+                    <ellipse cx="1060" cy="1560" rx="280" ry="240" fill="url(#art-magenta)" class="art-sh-magenta" opacity="0.45" />
 
-                    <!-- Övergång genom Projekt och Kontakt -->
-                    <ellipse cx="1500" cy="2550" rx="540" ry="520" fill="url(#art-orange)" />
-                    <ellipse cx="780" cy="2720" rx="460" ry="440" fill="url(#art-magenta)" class="art-sh-magenta" />
-                    <ellipse cx="120" cy="3200" rx="600" ry="580" fill="url(#art-cyan)" />
-                    <ellipse cx="1400" cy="3350" rx="520" ry="480" fill="url(#art-coral)" />
+                    <!-- ✦ ZON 3: TJÄNSTER / "VAD JAG GÖR" (cy: 1700 - 2550) ✦ -->
+                    <!-- Vänster: Sval cyanblå förgrening under glaskorten -->
+                    <ellipse cx="280" cy="1920" rx="440" ry="350" fill="url(#art-cyan)" opacity="0.62" />
+                    <!-- Centrum: Varm, mjuk solnedgångsglöd mellan korten -->
+                    <ellipse cx="800" cy="2100" rx="340" ry="290" fill="url(#art-orange)" opacity="0.58" />
+                    <!-- Höger: Djup marinblå ton som balanserar värmen -->
+                    <ellipse cx="1440" cy="1980" rx="420" ry="400" fill="url(#art-blue)" opacity="0.55" />
+                    <!-- Höger-nedre: Mjuk, dämpad rosenmagenta glöd -->
+                    <ellipse cx="1220" cy="2360" rx="280" ry="250" fill="url(#art-magenta)" class="art-sh-magenta" opacity="0.50" />
+                    <!-- Vänster-nedre: Varm korallbas -->
+                    <ellipse cx="160" cy="2460" rx="350" ry="380" fill="url(#art-coral)" opacity="0.62" />
+
+                    <!-- ✦ ZON 4: PROJEKT & KOMPETENSER (cy: 2550 - 3150) ✦ -->
+                    <!-- HÖGER: Frisk cyan/himmelsblå (sval fond för kompetenskort på högersidan) -->
+                    <ellipse cx="1380" cy="2820" rx="440" ry="380" fill="url(#art-cyan)" opacity="0.66" />
+                    <!-- VÄNSTER: Varm aprikos/orange accent på vänsterkanten -->
+                    <ellipse cx="260" cy="2920" rx="380" ry="360" fill="url(#art-orange)" opacity="0.60" />
+                    <!-- Centrum: Mjuk syren/lila som binder ihop sektionen -->
+                    <ellipse cx="780" cy="2750" rx="400" ry="300" fill="url(#art-purple)" class="art-sh-purple" opacity="0.48" />
+                    <!-- Vänster-mitt: Liten terrakotta/korall accent -->
+                    <ellipse cx="500" cy="3120" rx="240" ry="210" fill="url(#art-coral)" opacity="0.50" />
+
+                    <!-- ✦ ZON 5: KONTAKT & FOOTER (cy: 3150 - 3600) ✦ -->
+                    <!-- Höger: Djup, lugn marinblå fond bakom kontaktkortet -->
+                    <ellipse cx="1260" cy="3280" rx="420" ry="340" fill="url(#art-blue)" opacity="0.58" />
+                    <!-- Centrum-höger: Subtil cyanljuspunkt intill kontaktlänkarna -->
+                    <ellipse cx="980" cy="3420" rx="260" ry="220" fill="url(#art-cyan)" opacity="0.52" />
+                    <!-- Vänster: Mjuk korallton som milt tonar ut mot footern -->
+                    <ellipse cx="220" cy="3440" rx="380" ry="300" fill="url(#art-coral)" opacity="0.55" />
+                    <!-- Botten-centrum: Mycket bred, stillsam marinblå bas som förankrar footern -->
+                    <ellipse cx="720" cy="3550" rx="580" ry="240" fill="url(#art-blue)" opacity="0.50" />
                 </g>
             </svg>
 
