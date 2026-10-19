@@ -90,16 +90,7 @@ function uppdateraAktivLank() {
 }
 
 // ✦ Subtil futuristisk scroll-motor (Parallax, Entréer & Precision) ✦
-let arMinskadRorelse = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-try {
-    window.matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change", (e) => {
-        arMinskadRorelse = e.matches;
-        const lager = document.querySelector("#art-bakgrund-lager");
-        if (arMinskadRorelse && lager) {
-            lager.style.transform = "none";
-        }
-    });
-} catch (_) { }
+const arMinskadRorelse = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // 1. Mjuka entréer via IntersectionObserver
 function initScrollAvsloja() {
@@ -128,26 +119,15 @@ function initScrollAvsloja() {
 const sidhuvudElement = document.querySelector(".sidhuvud");
 const scrollLaser = document.querySelector("#scroll-laser");
 const scrollLedtrad = document.querySelector("#scroll-ledtrad");
-const artBakgrundLager = document.querySelector("#art-bakgrund-lager");
+const artCyan = document.querySelector(".art-ljus-cyan");
+const artOrange = document.querySelector(".art-ljus-orange");
+const artKorall = document.querySelector(".art-ljus-korall");
+const artBla = document.querySelector(".art-ljus-bla");
+const artLila = document.querySelector(".art-ljus-lila");
+const artMagenta = document.querySelector(".art-ljus-magenta");
+const artGrid = document.querySelector(".art-tech-grid");
 const omBild = document.querySelector("#om-bild");
 const omSektion = document.querySelector("#om");
-
-let winHeight = window.innerHeight;
-let layerHeight = artBakgrundLager ? artBakgrundLager.offsetHeight : winHeight;
-let maxTravel = Math.max(layerHeight - winHeight, 0);
-
-function uppdateraBakgrundDimensioner() {
-    winHeight = window.innerHeight;
-    if (artBakgrundLager) {
-        layerHeight = artBakgrundLager.offsetHeight;
-        maxTravel = Math.max(layerHeight - winHeight, 0);
-    }
-}
-
-window.addEventListener("resize", () => {
-    uppdateraBakgrundDimensioner();
-    requestScrollUpdate();
-}, { passive: true });
 
 let ticking = false;
 
@@ -179,12 +159,15 @@ function onScrollFrame() {
         }
     }
 
-    // Parallax på bakgrunden (endast om användaren inte valt minskad rörelse)
-    if (!arMinskadRorelse && artBakgrundLager) {
-        // Kontinuerlig mjuk förflyttning: bakgrundsbilden rör sig uppåt långsammare än innehållet
-        // så att nya delar av målningen avtäcks gradvis från topp till botten utan glipor
-        const bgOffset = scrollFraction * -maxTravel;
-        artBakgrundLager.style.transform = `translate3d(0, ${bgOffset.toFixed(2)}px, 0)`;
+    // Parallax på bakgrundens ljusfält (endast om användaren inte valt minskad rörelse)
+    if (!arMinskadRorelse) {
+        if (artCyan) artCyan.style.transform = `translate3d(${scrollY * 0.04}px, ${scrollY * -0.07}px, 0)`;
+        if (artOrange) artOrange.style.transform = `translate3d(${scrollY * -0.05}px, ${scrollY * 0.06}px, 0)`;
+        if (artKorall) artKorall.style.transform = `translate3d(${scrollY * 0.03}px, ${scrollY * -0.04}px, 0)`;
+        if (artBla) artBla.style.transform = `translate3d(0, ${scrollY * -0.03}px, 0) scale(${1 + scrollFraction * 0.1})`;
+        if (artLila) artLila.style.transform = `translate3d(${scrollY * -0.03}px, ${scrollY * -0.05}px, 0)`;
+        if (artMagenta) artMagenta.style.transform = `translate3d(${scrollY * 0.04}px, ${scrollY * 0.03}px, 0)`;
+        if (artGrid) artGrid.style.transform = `translate3d(0, ${scrollY * -0.08}px, 0)`;
 
         // Subtil kameraglid på profilbilden i "Om mig"
         if (omBild && omSektion) {
@@ -194,8 +177,6 @@ function onScrollFrame() {
                 omBild.style.transform = `translate3d(0, ${diff * 0.05}px, 0) scale(1.03)`;
             }
         }
-    } else if (artBakgrundLager) {
-        artBakgrundLager.style.transform = "none";
     }
 
     ticking = false;
@@ -214,15 +195,9 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 
 window.addEventListener("DOMContentLoaded", () => {
-    uppdateraBakgrundDimensioner();
     initScrollAvsloja();
     requestScrollUpdate();
     uppdateraAktivLank();
-});
-
-window.addEventListener("load", () => {
-    uppdateraBakgrundDimensioner();
-    requestScrollUpdate();
 });
 
 // ✦ Mjuk scroll till kontaktformuläret vid klick på CTA-knappar ✦
