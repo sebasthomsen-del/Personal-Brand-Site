@@ -48,63 +48,44 @@ if (mobilknapp && huvudnav) {
 }
 
 // ✦ Aktiv sektion / Scroll-spy med grön prick ✦
-const sektioner = document.querySelectorAll("main section[id]");
 const navLankar = document.querySelectorAll(".nav-lank");
+const sektioner = [
+    document.querySelector("#om"),
+    document.querySelector("#tjanster"),
+    document.querySelector("#projekt"),
+    document.querySelector("#kontakt")
+].filter(Boolean);
 
 function uppdateraAktivLank() {
-    let aktuellSektionId = "";
-    const scrollPos = window.scrollY + 180;
+    const scrollY = window.scrollY + 140;
 
+    let aktivId = "";
     sektioner.forEach(sektion => {
-        const sektionTop = sektion.offsetTop;
-        const sektionHeight = sektion.offsetHeight;
-        if (scrollPos >= sektionTop && scrollPos < sektionTop + sektionHeight) {
-            aktuellSektionId = sektion.getAttribute("id");
+        const topp = sektion.offsetTop;
+        const hojd = sektion.offsetHeight;
+        if (scrollY >= topp && scrollY < topp + hojd) {
+            aktivId = sektion.getAttribute("id");
         }
     });
 
-    // Om vi nått nära botten, markera sista sektionen
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 80) {
-        if (sektioner.length > 0) {
-            aktuellSektionId = sektioner[sektioner.length - 1].getAttribute("id");
-        }
-    }
-
-    // Ta bort aktiv klass och flytta den gröna pricken
-    let prickFlyttad = false;
-    navLankar.forEach(lank => {
-        const href = lank.getAttribute("href");
-        if (href === `#${aktuellSektionId}`) {
-            lank.classList.add("aktiv");
-            // Se till att pricken ligger i den aktiva länken
-            let prick = document.querySelector(".aktiv-prick");
-            if (!prick) {
-                prick = document.createElement("span");
-                prick.className = "aktiv-prick";
-                prick.setAttribute("aria-hidden", "true");
+    if (aktivId) {
+        navLankar.forEach(lank => {
+            const matchar = lank.getAttribute("href") === `#${aktivId}`;
+            if (matchar) {
+                if (!lank.classList.contains("aktiv")) {
+                    navLankar.forEach(l => {
+                        l.classList.remove("aktiv");
+                        const prick = l.querySelector(".aktiv-prick");
+                        if (prick) prick.remove();
+                    });
+                    lank.classList.add("aktiv");
+                    const nyPrick = document.createElement("span");
+                    nyPrick.className = "aktiv-prick";
+                    nyPrick.setAttribute("aria-hidden", "true");
+                    lank.prepend(nyPrick);
+                }
             }
-            if (lank.firstChild !== prick) {
-                lank.insertBefore(prick, lank.firstChild);
-            }
-            prickFlyttad = true;
-        } else {
-            lank.classList.remove("aktiv");
-        }
-    });
-
-    // Om ingen sektion matchar (t.ex. i toppen/intro), markera Om mig som standard
-    if (!prickFlyttad && navLankar.length > 0 && window.scrollY < 400) {
-        const forstaLank = navLankar[0];
-        forstaLank.classList.add("aktiv");
-        let prick = document.querySelector(".aktiv-prick");
-        if (!prick) {
-            prick = document.createElement("span");
-            prick.className = "aktiv-prick";
-            prick.setAttribute("aria-hidden", "true");
-        }
-        if (forstaLank.firstChild !== prick) {
-            forstaLank.insertBefore(prick, forstaLank.firstChild);
-        }
+        });
     }
 }
 
@@ -226,15 +207,15 @@ document.querySelectorAll('a[href="#kontakt"]').forEach(knapp => {
         if (kontaktSektion) {
             e.preventDefault();
             kontaktSektion.scrollIntoView({ behavior: "smooth", block: "start" });
-            const namnFalt = document.querySelector("#kontakt-namn, #namn");
-            if (namnFalt) {
-                setTimeout(() => namnFalt.focus({ preventScroll: true }), 500);
+            const namnInput = document.querySelector("#kontakt-namn");
+            if (namnInput) {
+                setTimeout(() => namnInput.focus(), 650);
             }
         }
     });
 });
 
-// ✦ Hjälpfunktion för att läsa cookies ✦
+// Hjälpfunktion för att läsa cookies (t.ex. hubspotutk för besöksspårning)
 function hamtaCookie(namn) {
     const cookiestrang = `; ${document.cookie}`;
     const delar = cookiestrang.split(`; ${namn}=`);
@@ -245,7 +226,7 @@ function hamtaCookie(namn) {
 // ✦ Validering och koppling till HubSpot för kontaktformuläret ✦
 const kontaktForm = document.querySelector("#kontakt-form");
 const kontaktBekraftelse = document.querySelector("#kontakt-bekraftelse");
-const skickaKnapp = document.querySelector("#kontakt-skicka, .knapp-skicka");
+const skickaKnapp = document.querySelector("#kontakt-skicka");
 
 // HubSpot-konfiguration för EU-portalen
 const HUBSPOT_CONFIG = {
@@ -258,9 +239,9 @@ if (kontaktForm) {
     kontaktForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const namn = document.querySelector("#kontakt-namn, #namn");
-        const epost = document.querySelector("#kontakt-epost, #epost");
-        const meddelande = document.querySelector("#kontakt-meddelande, #meddelande");
+        const namn = document.querySelector("#kontakt-namn");
+        const epost = document.querySelector("#kontakt-epost");
+        const meddelande = document.querySelector("#kontakt-meddelande");
 
         let arGiltig = true;
 
@@ -268,7 +249,7 @@ if (kontaktForm) {
         document.querySelectorAll(".form-grupp").forEach(g => g.classList.remove("har-fel"));
 
         if (!namn || !namn.value.trim()) {
-            const grupp = document.querySelector("#grupp-namn") || (namn && namn.closest(".form-grupp"));
+            const grupp = document.querySelector("#grupp-namn");
             if (grupp) grupp.classList.add("har-fel");
             const felSpan = document.querySelector("#namn-fel");
             if (felSpan) felSpan.textContent = "Vänligen ange ditt namn.";
@@ -277,7 +258,7 @@ if (kontaktForm) {
 
         const epostRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!epost || !epostRegex.test(epost.value.trim())) {
-            const grupp = document.querySelector("#grupp-epost") || (epost && epost.closest(".form-grupp"));
+            const grupp = document.querySelector("#grupp-epost");
             if (grupp) grupp.classList.add("har-fel");
             const felSpan = document.querySelector("#epost-fel");
             if (felSpan) felSpan.textContent = "Vänligen ange en giltig e-postadress.";
@@ -285,7 +266,7 @@ if (kontaktForm) {
         }
 
         if (!meddelande || !meddelande.value.trim()) {
-            const grupp = document.querySelector("#grupp-meddelande") || (meddelande && meddelande.closest(".form-grupp"));
+            const grupp = document.querySelector("#grupp-meddelande");
             if (grupp) grupp.classList.add("har-fel");
             const felSpan = document.querySelector("#meddelande-fel");
             if (felSpan) felSpan.textContent = "Vänligen skriv ett meddelande.";
