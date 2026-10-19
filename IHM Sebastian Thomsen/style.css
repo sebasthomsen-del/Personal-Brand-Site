@@ -1172,6 +1172,79 @@ body.morkt .form-grupp.har-fel textarea {
     color: var(--text);
 }
 
+/* Sociala medier-länkar centrerade längst ner under kontaktformuläret */
+.kontakt-sociala {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    padding-top: calc(var(--luft) * 1.75);
+    margin-top: calc(var(--luft) * 1.5);
+    border-top: 1px solid var(--glas-kant);
+    transition: border-color 0.4s ease;
+}
+
+.social-lank {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--header-pill-bg);
+    border: 1px solid var(--header-pill-border);
+    color: var(--primar);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(22, 50, 79, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
+    text-decoration: none;
+}
+
+.social-lank svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social-lank:hover {
+    color: var(--accent);
+    background: #ffffff;
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(22, 50, 79, 0.12), 0 0 18px rgba(245, 137, 78, 0.35);
+}
+
+.social-lank:hover svg {
+    transform: scale(1.1);
+}
+
+body.morkt .social-lank {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+body.morkt .social-lank:hover {
+    background: rgba(232, 106, 58, 0.18);
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 20px rgba(232, 106, 58, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 44rem) {
+    .kontakt-kort {
+        padding: 1.5rem 1.25rem;
+        border-radius: 20px;
+    }
+}
+
 /* Rutnät för tjänster */
 .tjanster-rutnat {
     display: grid;
