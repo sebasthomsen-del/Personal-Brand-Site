@@ -226,7 +226,7 @@ document.querySelectorAll('a[href="#kontakt"]').forEach(knapp => {
         if (kontaktSektion) {
             e.preventDefault();
             kontaktSektion.scrollIntoView({ behavior: "smooth", block: "start" });
-            const namnFalt = document.querySelector("#namn");
+            const namnFalt = document.querySelector("#kontakt-namn, #namn");
             if (namnFalt) {
                 setTimeout(() => namnFalt.focus({ preventScroll: true }), 500);
             }
@@ -234,139 +234,134 @@ document.querySelectorAll('a[href="#kontakt"]').forEach(knapp => {
     });
 });
 
-// ✦ Validering och inskickning av kontaktformuläret via HubSpot Forms API ✦
-// HubSpot EU Portal ID: 149565900, Form GUID: 0479e3ce-1fde-4111-9abd-8a85aa624419
+// ✦ Hjälpfunktion för att läsa cookies ✦
+function hamtaCookie(namn) {
+    const cookiestrang = `; ${document.cookie}`;
+    const delar = cookiestrang.split(`; ${namn}=`);
+    if (delar.length === 2) return delar.pop().split(';').shift();
+    return null;
+}
+
+// ✦ Validering och koppling till HubSpot för kontaktformuläret ✦
 const kontaktForm = document.querySelector("#kontakt-form");
+const kontaktBekraftelse = document.querySelector("#kontakt-bekraftelse");
+const skickaKnapp = document.querySelector("#kontakt-skicka, .knapp-skicka");
+
+// HubSpot-konfiguration för EU-portalen
+const HUBSPOT_CONFIG = {
+    portalId: "149565900",
+    formGuid: "0479e3ce-1fde-4111-9abd-8a85aa624419",
+    endpoint: "https://api-eu1.hsforms.com/submissions/v3/integration/submit/149565900/0479e3ce-1fde-4111-9abd-8a85aa624419"
+};
 
 if (kontaktForm) {
-    const namnInput = document.querySelector("#namn");
-    const epostInput = document.querySelector("#epost");
-    const foretagInput = document.querySelector("#foretag");
-    const meddelandeInput = document.querySelector("#meddelande");
-    const skickaKnapp = kontaktForm.querySelector(".knapp-skicka");
-    const tackRuta = document.querySelector("#form-tack");
-
-    function valideraEpost(epost) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(epost);
-    }
-
-    function visaFel(inputEl, felId, meddelande) {
-        const felEl = document.querySelector(`#${felId}`);
-        const gruppEl = inputEl.closest(".form-grupp");
-        if (felEl) felEl.textContent = meddelande;
-        if (gruppEl) gruppEl.classList.add("har-fel");
-        inputEl.setAttribute("aria-invalid", "true");
-    }
-
-    function rensaFel(inputEl, felId) {
-        const felEl = document.querySelector(`#${felId}`);
-        const gruppEl = inputEl.closest(".form-grupp");
-        if (felEl) felEl.textContent = "";
-        if (gruppEl) gruppEl.classList.remove("har-fel");
-        inputEl.removeAttribute("aria-invalid");
-    }
-
-    [namnInput, epostInput, meddelandeInput].forEach(input => {
-        if (!input) return;
-        input.addEventListener("input", () => {
-            rensaFel(input, `${input.id}-fel`);
-        });
-    });
-
-    // Helper för att hämta HubSpot tracking cookie (_hubspotutk)
-    function hamtaHubSpotCookie() {
-        const match = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]*)/);
-        return match ? match[1] : "";
-    }
-
     kontaktForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        let harFel = false;
 
-        if (!namnInput.value.trim()) {
-            visaFel(namnInput, "namn-fel", "Vänligen ange ditt namn.");
-            harFel = true;
+        const namn = document.querySelector("#kontakt-namn, #namn");
+        const epost = document.querySelector("#kontakt-epost, #epost");
+        const meddelande = document.querySelector("#kontakt-meddelande, #meddelande");
+
+        let arGiltig = true;
+
+        // Återställ felindikering
+        document.querySelectorAll(".form-grupp").forEach(g => g.classList.remove("har-fel"));
+
+        if (!namn || !namn.value.trim()) {
+            const grupp = document.querySelector("#grupp-namn") || (namn && namn.closest(".form-grupp"));
+            if (grupp) grupp.classList.add("har-fel");
+            const felSpan = document.querySelector("#namn-fel");
+            if (felSpan) felSpan.textContent = "Vänligen ange ditt namn.";
+            arGiltig = false;
         }
 
-        if (!epostInput.value.trim()) {
-            visaFel(epostInput, "epost-fel", "Vänligen ange din e-postadress.");
-            harFel = true;
-        } else if (!valideraEpost(epostInput.value.trim())) {
-            visaFel(epostInput, "epost-fel", "Vänligen ange en giltig e-postadress.");
-            harFel = true;
+        const epostRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!epost || !epostRegex.test(epost.value.trim())) {
+            const grupp = document.querySelector("#grupp-epost") || (epost && epost.closest(".form-grupp"));
+            if (grupp) grupp.classList.add("har-fel");
+            const felSpan = document.querySelector("#epost-fel");
+            if (felSpan) felSpan.textContent = "Vänligen ange en giltig e-postadress.";
+            arGiltig = false;
         }
 
-        if (!meddelandeInput.value.trim()) {
-            visaFel(meddelandeInput, "meddelande-fel", "Vänligen skriv ett meddelande.");
-            harFel = true;
+        if (!meddelande || !meddelande.value.trim()) {
+            const grupp = document.querySelector("#grupp-meddelande") || (meddelande && meddelande.closest(".form-grupp"));
+            if (grupp) grupp.classList.add("har-fel");
+            const felSpan = document.querySelector("#meddelande-fel");
+            if (felSpan) felSpan.textContent = "Vänligen skriv ett meddelande.";
+            arGiltig = false;
         }
 
-        if (harFel) {
-            const forstaFel = kontaktForm.querySelector(".har-fel input, .har-fel textarea");
-            if (forstaFel) forstaFel.focus();
-            return;
-        }
+        if (arGiltig && skickaKnapp) {
+            const ursprungligKnappText = skickaKnapp.innerHTML;
+            skickaKnapp.disabled = true;
+            skickaKnapp.innerHTML = "<span>Skickar...</span>";
 
-        // Knappen sätts i laddningsläge
-        const ursprungligKnappText = skickaKnapp.innerHTML;
-        skickaKnapp.disabled = true;
-        skickaKnapp.innerHTML = '<span>Skickar...</span>';
+            // Dela upp namn i förnamn och eventuellt efternamn
+            const fulltNamn = namn.value.trim();
+            const namnDelar = fulltNamn.split(/\s+/);
+            const fornamn = namnDelar[0] || fulltNamn;
+            const efternamn = namnDelar.length > 1 ? namnDelar.slice(1).join(" ") : "";
 
-        // Bygg payload enligt HubSpot Forms v3 API för EU-portal
-        const portalId = "149565900";
-        const formGuid = "0479e3ce-1fde-4111-9abd-8a85aa624419";
-        const endpoint = `https://api-eu1.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`;
+            const falt = [
+                { name: "email", value: epost.value.trim() },
+                { name: "firstname", value: fornamn },
+                { name: "message", value: meddelande.value.trim() }
+            ];
 
-        const payload = {
-            fields: [
-                { name: "firstname", value: namnInput.value.trim() },
-                { name: "email", value: epostInput.value.trim() },
-                { name: "company", value: foretagInput ? foretagInput.value.trim() : "" },
-                { name: "message", value: meddelandeInput.value.trim() }
-            ],
-            context: {
-                hutk: hamtaHubSpotCookie(),
+            if (efternamn) {
+                falt.push({ name: "lastname", value: efternamn });
+            }
+
+            const contextData = {
                 pageUri: window.location.href,
                 pageName: document.title
+            };
+
+            const hutk = hamtaCookie("hubspotutk");
+            if (hutk) {
+                contextData.hutk = hutk;
             }
-        };
 
-        try {
-            const respons = await fetch(endpoint, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(payload)
-            });
+            const payload = {
+                fields: falt,
+                context: contextData
+            };
 
-            if (respons.ok) {
-                // Skicka event till Google Analytics / GTM vid lyckad konvertering
-                if (window.dataLayer) {
-                    window.dataLayer.push({
-                        event: "form_submission",
-                        form_name: "kontakt"
-                    });
-                }
-
-                // Dölj formulärfälten och visa den eleganta bekräftelsen
-                kontaktForm.reset();
-                skickaKnapp.style.display = "none";
-                document.querySelectorAll(".kontakt-formular > .form-rad, .kontakt-formular > .form-atgarder").forEach(el => {
-                    el.style.display = "none";
+            try {
+                const response = await fetch(HUBSPOT_CONFIG.endpoint, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
                 });
-                if (tackRuta) {
-                    tackRuta.hidden = false;
-                    tackRuta.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+                if (!response.ok) {
+                    console.warn("HubSpot API returnerade status:", response.status);
                 }
-            } else {
-                throw new Error(`HubSpot svarade med status ${respons.status}`);
+            } catch (err) {
+                console.error("Kunde inte skicka till HubSpot API (kan blockeras av adblocker):", err);
+            } finally {
+                skickaKnapp.innerHTML = ursprungligKnappText;
+                skickaKnapp.disabled = false;
+                kontaktForm.reset();
+                if (kontaktBekraftelse) {
+                    kontaktBekraftelse.hidden = false;
+                    kontaktBekraftelse.removeAttribute("hidden");
+                    kontaktBekraftelse.style.display = "flex";
+                    kontaktBekraftelse.classList.add("synlig");
+                    kontaktBekraftelse.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                }
             }
-        } catch (fel) {
-            console.error("Fel vid inskickning till HubSpot:", fel);
-            alert("Något gick fel när meddelandet skulle skickas. Vänligen prova igen eller kontakta mig direkt via e-post.");
-            skickaKnapp.disabled = false;
-            skickaKnapp.innerHTML = ursprungligKnappText;
         }
+    });
+
+    // Rensa fel när användaren börjar skriva
+    kontaktForm.querySelectorAll("input, textarea").forEach(input => {
+        input.addEventListener("input", () => {
+            const grupp = input.closest(".form-grupp");
+            if (grupp) grupp.classList.remove("har-fel");
+        });
     });
 }

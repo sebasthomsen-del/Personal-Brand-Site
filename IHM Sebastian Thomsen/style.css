@@ -382,19 +382,6 @@ body.morkt .scroll-laser-linje {
     opacity: 0.8;
 }
 
-.logo-ikon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--header-pill-bg);
-    border: 1px solid var(--header-pill-border);
-    color: var(--primar);
-    flex-shrink: 0;
-}
-
 .logo-namn {
     font-family: var(--typsnitt-rubrik);
 }
@@ -1030,14 +1017,16 @@ body.morkt .form-grupp textarea:focus {
 }
 
 /* Felmeddelanden & validering */
-.felmeddelande {
+.felmeddelande,
+.form-fel-meddelande {
     font-size: 0.8rem;
     color: #dc2626;
     min-height: 1.1rem;
     font-weight: 500;
 }
 
-body.morkt .felmeddelande {
+body.morkt .felmeddelande,
+body.morkt .form-fel-meddelande {
     color: #f87171;
 }
 
@@ -1053,7 +1042,8 @@ body.morkt .form-grupp.har-fel textarea {
     background: rgba(248, 113, 113, 0.08);
 }
 
-.form-atgarder {
+.form-atgarder,
+.form-footer {
     display: flex;
     align-items: center;
     gap: 1.5rem;
@@ -1061,23 +1051,42 @@ body.morkt .form-grupp.har-fel textarea {
     flex-wrap: wrap;
 }
 
-.knapp-skicka {
+.knapp-skicka,
+.kontakt-skicka-knapp {
     cursor: pointer;
     border: none;
     gap: 0.55rem;
     padding: 0.95rem 1.85rem;
     font-size: 1.02rem;
+    background: var(--accent);
+    color: var(--knapptext);
+    font-weight: 700;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    box-shadow: 0 4px 14px 0 rgba(196, 78, 35, 0.35);
+}
+
+.knapp-skicka:hover,
+.kontakt-skicka-knapp:hover {
+    background: var(--accent-hov);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px 0 rgba(196, 78, 35, 0.5);
 }
 
 .skicka-pil {
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.knapp-skicka:hover .skicka-pil {
+.knapp-skicka:hover .skicka-pil,
+.kontakt-skicka-knapp:hover .skicka-pil {
     transform: translate(3px, -3px);
 }
 
-.knapp-skicka:disabled {
+.knapp-skicka:disabled,
+.kontakt-skicka-knapp:disabled {
     opacity: 0.65;
     cursor: not-allowed;
     transform: none !important;
@@ -1091,22 +1100,39 @@ body.morkt .form-grupp.har-fel textarea {
 }
 
 /* Bekräftelsemeddelande */
-.form-tack {
-    display: flex;
+.kontakt-bekraftelse,
+.form-tack,
+#kontakt-bekraftelse,
+#form-tack {
+    display: none;
     align-items: flex-start;
-    gap: 1.25rem;
-    padding: 1.5rem;
-    border-radius: calc(var(--radie) - 4px);
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 14px;
     background: rgba(16, 185, 129, 0.12);
     border: 1px solid rgba(16, 185, 129, 0.35);
     margin-top: 1rem;
-    animation: tackEntré 0.4s ease-out forwards;
+    animation: fadaIn 0.35s ease;
 }
 
-@keyframes tackEntré {
+.kontakt-bekraftelse[hidden],
+.form-tack[hidden],
+#kontakt-bekraftelse[hidden],
+#form-tack[hidden] {
+    display: none !important;
+}
+
+.kontakt-bekraftelse.synlig,
+.form-tack.synlig,
+#kontakt-bekraftelse.synlig,
+#form-tack.synlig {
+    display: flex !important;
+}
+
+@keyframes fadaIn {
     from {
         opacity: 0;
-        transform: translateY(8px);
+        transform: translateY(6px);
     }
 
     to {
@@ -1115,25 +1141,31 @@ body.morkt .form-grupp.har-fel textarea {
     }
 }
 
+.bekraftelse-ikon,
 .tack-ikon {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
     background: #10b981;
     color: #ffffff;
+    font-weight: bold;
     flex-shrink: 0;
+    font-size: 1.1rem;
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
 }
 
+.bekraftelse-text h4,
 .form-tack h4 {
     margin: 0 0 0.25rem 0;
-    font-size: 1.15rem;
     color: var(--primar);
+    font-family: var(--typsnitt-rubrik);
+    font-size: 1.1rem;
 }
 
+.bekraftelse-text p,
 .form-tack p {
     margin: 0;
     font-size: 0.95rem;
