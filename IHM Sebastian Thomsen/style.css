@@ -823,6 +823,29 @@ body.morkt .puls-punkt::after {
     transition: transform 0.15s ease-out;
 }
 
+/* Om mig: Textinnehåll med rubrik och brödtext */
+.om-text {
+    grid-area: text;
+}
+
+.om-text h2 {
+    font-size: clamp(1.2rem, 3.5vw, 1.55rem);
+    font-weight: 700;
+    color: var(--primar);
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.om-text p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text);
+    max-width: 58ch;
+    margin-bottom: 0;
+}
+
 /* Handlingsknapp: Modern pill-knapp med mjuk lyft-effekt och integrerad glow */
 .knapp {
     display: inline-flex;
@@ -1265,7 +1288,7 @@ body.morkt .social-lank:hover {
     perspective: 1200px;
 }
 
-/* Boxarna som 3D-glaspartier med skiktade svävande skuggor */
+/* Boxarna som eleganta glaspartier med integrerad glow */
 .kort {
     position: relative;
     overflow: hidden;
@@ -1275,15 +1298,12 @@ body.morkt .social-lank:hover {
     padding: calc(var(--luft) * 1.85);
     border: 1px solid var(--glas-kant);
     border-radius: var(--radie);
-    /* 3D flerlagers svävande skugga som lyfter glaset över bakgrunden */
     box-shadow:
         var(--glas-sken),
         0 4px 8px -2px rgba(22, 50, 79, 0.04),
-        0 14px 28px -6px var(--skugga),
-        0 30px 60px -12px rgba(22, 50, 79, 0.08);
-    transform-style: preserve-3d;
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        0 14px 28px -6px var(--skugga);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
         border-color 0.25s ease,
         background 0.4s ease;
 }
@@ -1308,33 +1328,31 @@ body.morkt .social-lank:hover {
     z-index: 2;
 }
 
-/* Mjuk svävande lyft-effekt vid hovring med 3D-djup */
+/* Mjuk lyft-effekt vid hovring med normal, ren glow */
 .kort:hover {
-    transform: translateY(-6px) translateZ(8px);
+    transform: translateY(-5px);
     border-color: var(--glas-hover-border);
     box-shadow:
         var(--glas-hover-sken),
-        0 6px 12px -2px rgba(22, 50, 79, 0.05),
-        0 22px 42px -8px var(--skugga),
-        0 42px 76px -14px rgba(22, 50, 79, 0.12),
-        0 0 28px 0 rgba(56, 194, 203, 0.18);
+        0 14px 28px -6px var(--skugga),
+        0 0 28px 0 rgba(56, 194, 203, 0.32),
+        0 0 16px 0 rgba(245, 137, 78, 0.20);
 }
 
 body.morkt .kort {
     box-shadow:
         var(--glas-sken),
         0 4px 10px -2px rgba(0, 0, 0, 0.35),
-        0 18px 36px -8px rgba(0, 0, 0, 0.55),
-        0 34px 68px -14px rgba(0, 0, 0, 0.65);
+        0 18px 36px -8px rgba(0, 0, 0, 0.55);
 }
 
 body.morkt .kort:hover {
+    transform: translateY(-5px);
     box-shadow:
         var(--glas-hover-sken),
-        0 6px 14px -2px rgba(0, 0, 0, 0.45),
-        0 24px 48px -8px rgba(0, 0, 0, 0.70),
-        0 46px 88px -16px rgba(0, 0, 0, 0.80),
-        0 0 30px 0 rgba(232, 106, 58, 0.22);
+        0 16px 32px -8px rgba(0, 0, 0, 0.55),
+        0 0 30px 0 rgba(232, 106, 58, 0.35),
+        0 0 18px 0 rgba(56, 194, 203, 0.22);
 }
 
 .kort h3 {
@@ -1580,10 +1598,9 @@ footer p {
         grid-template-columns: 210px 1fr;
         grid-template-areas:
             "rubrik rubrik"
-            "bild text1"
-            "bild text2";
+            "bild text";
         column-gap: calc(var(--luft) * 2.5);
-        row-gap: 0.65rem;
+        row-gap: 1.25rem;
         align-items: start;
     }
 
@@ -1597,20 +1614,8 @@ footer p {
         margin-bottom: 0;
     }
 
-    #om p:nth-of-type(1) {
-        grid-area: text1;
-        font-size: 1.12rem;
-        font-weight: 500;
-        color: var(--primar);
-        line-height: 1.45;
-        margin-bottom: 0.25rem;
-    }
-
-    #om p:nth-of-type(2) {
-        grid-area: text2;
-        font-size: 0.98rem;
-        line-height: 1.65;
-        max-width: 56ch;
+    .om-text {
+        grid-area: text;
     }
 }
 
