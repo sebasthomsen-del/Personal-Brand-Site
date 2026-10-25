@@ -808,8 +808,8 @@ body.morkt .puls-punkt::after {
     border-radius: var(--radie);
     border: 1px solid var(--glas-kant);
     box-shadow: 0 16px 36px -8px var(--skugga);
-    aspect-ratio: 240 / 380;
-    max-width: 320px;
+    aspect-ratio: 4 / 5;
+    max-width: 220px;
     width: 100%;
     margin-bottom: calc(var(--luft) * 1.5);
 }
@@ -1494,16 +1494,16 @@ footer p {
         gap: calc(var(--luft) * 2);
     }
 
-    /* Om mig: Tvåkolumnslayout på desktop */
+    /* Om mig: Tvåkolumnslayout på desktop med harmonisk balans mellan bild och text */
     #om {
         display: grid;
-        grid-template-columns: minmax(260px, 320px) 1fr;
+        grid-template-columns: 210px 1fr;
         grid-template-areas:
             "rubrik rubrik"
             "bild text1"
             "bild text2";
-        column-gap: calc(var(--luft) * 4);
-        row-gap: 0.75rem;
+        column-gap: calc(var(--luft) * 2.5);
+        row-gap: 0.65rem;
         align-items: start;
     }
 
@@ -1513,15 +1513,24 @@ footer p {
 
     .om-bild-ram {
         grid-area: bild;
+        max-width: 210px;
         margin-bottom: 0;
     }
 
     #om p:nth-of-type(1) {
         grid-area: text1;
+        font-size: 1.12rem;
+        font-weight: 500;
+        color: var(--primar);
+        line-height: 1.45;
+        margin-bottom: 0.25rem;
     }
 
     #om p:nth-of-type(2) {
         grid-area: text2;
+        font-size: 0.98rem;
+        line-height: 1.65;
+        max-width: 56ch;
     }
 }
 
