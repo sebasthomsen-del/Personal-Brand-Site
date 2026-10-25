@@ -1285,7 +1285,6 @@ body.morkt .social-lank:hover {
     list-style: none;
     padding: 0;
     margin: 0;
-    perspective: 1200px;
 }
 
 /* Boxarna som eleganta glaspartier med integrerad glow */
@@ -1383,12 +1382,16 @@ body.morkt .kort:hover {
 
 /* Projektkorten: Matchande symbolboxar med mjuk frostat glas & intensivt ljussken vid hovring */
 .projekt-symbol-box {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 58px;
     height: 58px;
     border-radius: 16px;
+    line-height: 0;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+    box-sizing: border-box;
     background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0.20) 100%);
     backdrop-filter: blur(14px) saturate(180%);
     -webkit-backdrop-filter: blur(14px) saturate(180%);
@@ -1397,7 +1400,6 @@ body.morkt .kort:hover {
         var(--glas-sken),
         0 4px 12px rgba(22, 50, 79, 0.05);
     color: var(--accent);
-    margin-bottom: 1.25rem;
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
         box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
         border-color 0.3s ease,
@@ -1417,6 +1419,8 @@ body.morkt .projekt-symbol-box {
     width: 28px;
     height: 28px;
     display: block;
+    margin: auto;
+    flex-shrink: 0;
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
 }
 

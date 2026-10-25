@@ -246,7 +246,8 @@ window.addEventListener("scroll", () => {
 function initGlas3D() {
     if (arMinskadRorelse || !window.matchMedia("(pointer: fine)").matches) return;
 
-    const glaskort = document.querySelectorAll(".kort, .kontakt-kort");
+    // ✦ 3D-glaslutning vid musrörelse: endast på kontaktformuläret ✦
+    const glaskort = document.querySelectorAll(".kontakt-kort");
     glaskort.forEach(kort => {
         let frameId = null;
 
