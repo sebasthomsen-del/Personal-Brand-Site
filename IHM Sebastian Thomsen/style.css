@@ -1369,15 +1369,32 @@ body.morkt .kort:hover {
     color: var(--text);
 }
 
-.kort img {
-    border-radius: calc(var(--radie) - 6px);
-    margin-bottom: var(--luft);
-    border: 1px solid var(--glas-kant);
+/* Bildram för projektkorten med subtil glasram och mjuk bildskalning vid hovring */
+.projekt-bild-ram {
     width: 100%;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
+    aspect-ratio: 16 / 9;
+    border-radius: calc(var(--radie) - 6px);
+    overflow: hidden;
+    margin-bottom: 1.15rem;
+    border: 1px solid var(--glas-kant);
+    box-shadow: 0 8px 24px -4px var(--skugga);
     background: rgba(125, 125, 125, 0.05);
-    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 4px 12px -2px var(--skugga);
+}
+
+.projekt-bild-ram img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
+    margin-bottom: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kort:hover .projekt-bild-ram img {
+    transform: scale(1.05);
 }
 
 /* Projektkorten: Matchande symbolboxar med mjuk frostat glas & intensivt ljussken vid hovring */
